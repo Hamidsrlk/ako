@@ -1,0 +1,24 @@
+# PostgreSQL محلی برای توسعه. اجرا: docker compose up -d
+# توقف: docker compose down  (داده‌ها در volume حفظ می‌شوند)
+# حذف کامل داده: docker compose down -v
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: ako-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ako
+      POSTGRES_PASSWORD: ako_password
+      POSTGRES_DB: ako
+    ports:
+      - "5432:5432"
+    volumes:
+      - ako_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ako -d ako"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  ako_pgdata:
