@@ -7,10 +7,10 @@ import { Separator } from "@/components/ui/separator";
 import { useTranslations } from "@/hooks/use-translations";
 
 const exploreLinks = [
-  { key: "recipes" as const, href: "#recipes" },
-  { key: "restaurants" as const, href: "#restaurants" },
-  { key: "community" as const, href: "#community" },
-  { key: "marketplace" as const, href: "#marketplace" },
+  { key: "recipes" as const, href: "/recipes" },
+  { key: "restaurants" as const, href: "/restaurants" },
+  { key: "community" as const, href: "/community" },
+  { key: "marketplace" as const, href: "/marketplace" },
 ];
 
 export function Footer() {

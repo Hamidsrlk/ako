@@ -25,14 +25,14 @@ import { useTranslations } from "@/hooks/use-translations";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { key: "recipes" as const, href: "#recipes", icon: ChefHatIcon },
+  { key: "recipes" as const, href: "/recipes", icon: ChefHatIcon },
   {
     key: "restaurants" as const,
-    href: "#restaurants",
+    href: "/restaurants",
     icon: UtensilsCrossedIcon,
   },
-  { key: "community" as const, href: "#community", icon: UsersIcon },
-  { key: "marketplace" as const, href: "#marketplace", icon: StoreIcon },
+  { key: "community" as const, href: "/community", icon: UsersIcon },
+  { key: "marketplace" as const, href: "/marketplace", icon: StoreIcon },
 ];
 
 export function Navbar() {

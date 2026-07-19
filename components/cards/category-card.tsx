@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowUpRightIcon } from "lucide-react";
+import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
 import { OptimizedImage } from "@/components/ui/optimized-image";
@@ -18,10 +19,11 @@ export function CategoryCard({ category, className }: CategoryCardProps) {
   const { dictionary } = useTranslations();
 
   const name = locale === "fa" ? category.nameFa : category.nameEn;
+  const href = `/categories/${category.slug}`;
 
   return (
-    <button
-      type="button"
+    <Link
+      href={href}
       className={cn(
         "group relative flex aspect-square w-full flex-col items-center justify-end overflow-hidden rounded-2xl ring-1 ring-foreground/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:ring-orange-500/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500",
         className
@@ -51,6 +53,6 @@ export function CategoryCard({ category, className }: CategoryCardProps) {
       <Badge className="absolute end-3 top-3 bg-white/20 text-white backdrop-blur-sm">
         <ArrowUpRightIcon className="size-3" aria-hidden />
       </Badge>
-    </button>
+    </Link>
   );
 }

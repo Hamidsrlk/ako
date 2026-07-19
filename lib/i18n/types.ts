@@ -82,34 +82,54 @@ export type Dictionary = {
     placeholder: string;
     button: string;
     ariaLabel: string;
+    title: string;
+    subtitle: string;
+    noQuery: string;
+    noResults: string;
+    resultsFor: string;
+    recipesTab: string;
+    restaurantsTab: string;
   };
-  footer: {
-    tagline: string;
-    explore: string;
-    company: string;
-    legal: string;
-    about: string;
-    careers: string;
-    contact: string;
-    privacy: string;
-    terms: string;
-    cookies: string;
-    newsletter: string;
-    newsletterPlaceholder: string;
-    subscribe: string;
-    rights: string;
+  recipeDetail: {
+    backToRecipes: string;
+    ingredients: string;
+    instructions: string;
+    cookTime: string;
+    servings: string;
+    rating: string;
+    likes: string;
+    author: string;
+    relatedRecipes: string;
+    notFound: string;
+    tags: string;
+    difficulty: string;
+    difficultyEasy: string;
+    difficultyMedium: string;
+    difficultyHard: string;
   };
-  theme: {
-    toggle: string;
-    light: string;
-    dark: string;
-    system: string;
+  restaurantDetail: {
+    backToRestaurants: string;
+    reviews: string;
+    featuredReview: string;
+    location: string;
+    cuisine: string;
+    priceLevel: string;
+    notFound: string;
+    writeReview: string;
   };
-  language: {
-    switch: string;
+  categoryDetail: {
+    backToCategories: string;
+    recipesInSection: string;
+    noRecipes: string;
+    notFound: string;
   };
   common: {
     rating: string;
     minutes: string;
+    notFound: string;
+    notFoundDescription: string;
+    backHome: string;
+    loadingMore: string;
+    viewAll: string;
   };
 };

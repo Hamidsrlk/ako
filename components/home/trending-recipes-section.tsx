@@ -22,6 +22,7 @@ export function TrendingRecipesSection() {
           title={dictionary.trending.title}
           subtitle={dictionary.trending.subtitle}
           viewAllLabel={dictionary.trending.viewAll}
+          viewAllHref="/recipes"
           eyebrow={dictionary.trending.trending}
         />
 

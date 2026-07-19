@@ -1,6 +1,7 @@
 "use client";
 
 import { SearchIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -22,13 +23,16 @@ export function SearchBar({
   showButton = true,
 }: SearchBarProps) {
   const { dictionary } = useTranslations();
+  const router = useRouter();
   const [query, setQuery] = useState("");
 
   const resolvedPlaceholder = placeholder ?? dictionary.search.placeholder;
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!query.trim()) return;
+    const trimmed = query.trim();
+    if (!trimmed) return;
+    router.push(`/search?q=${encodeURIComponent(trimmed)}`);
   }
 
   return (

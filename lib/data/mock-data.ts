@@ -14,6 +14,7 @@ export const platformStats = {
 export const foodCategories: FoodCategory[] = [
   {
     id: "persian",
+    slug: "persian",
     nameKey: "persian",
     nameFa: "ایرانی",
     nameEn: "Persian",
@@ -24,6 +25,7 @@ export const foodCategories: FoodCategory[] = [
   },
   {
     id: "italian",
+    slug: "italian",
     nameKey: "italian",
     nameFa: "ایتالیایی",
     nameEn: "Italian",
@@ -34,6 +36,7 @@ export const foodCategories: FoodCategory[] = [
   },
   {
     id: "desserts",
+    slug: "desserts",
     nameKey: "desserts",
     nameFa: "دسر",
     nameEn: "Desserts",
@@ -44,6 +47,7 @@ export const foodCategories: FoodCategory[] = [
   },
   {
     id: "healthy",
+    slug: "healthy",
     nameKey: "healthy",
     nameFa: "سالم",
     nameEn: "Healthy",
@@ -54,6 +58,7 @@ export const foodCategories: FoodCategory[] = [
   },
   {
     id: "seafood",
+    slug: "seafood",
     nameKey: "seafood",
     nameFa: "دریایی",
     nameEn: "Seafood",
@@ -64,6 +69,7 @@ export const foodCategories: FoodCategory[] = [
   },
   {
     id: "breakfast",
+    slug: "breakfast",
     nameKey: "breakfast",
     nameFa: "صبحانه",
     nameEn: "Breakfast",
@@ -77,6 +83,7 @@ export const foodCategories: FoodCategory[] = [
 export const trendingRecipes: Recipe[] = [
   {
     id: "1",
+    slug: "creamy-mushroom-pasta",
     titleFa: "پاستا کرمی با قارچ",
     titleEn: "Creamy Mushroom Pasta",
     descriptionFa: "پاستای خامه‌ای با سس قارچ تازه و پarmesan",
@@ -93,6 +100,7 @@ export const trendingRecipes: Recipe[] = [
   },
   {
     id: "2",
+    slug: "mediterranean-salad-bowl",
     titleFa: "سالاد مدیترانه‌ای",
     titleEn: "Mediterranean Salad Bowl",
     descriptionFa: "سالاد رنگارنگ با سبزیجات تازه و سس لیمو",
@@ -109,6 +117,7 @@ export const trendingRecipes: Recipe[] = [
   },
   {
     id: "3",
+    slug: "perfect-grilled-steak",
     titleFa: "استیک گریل شده",
     titleEn: "Perfect Grilled Steak",
     descriptionFa: "استیک گریل با کره herb و سیب‌زمینی",
@@ -125,6 +134,7 @@ export const trendingRecipes: Recipe[] = [
   },
   {
     id: "4",
+    slug: "homemade-koobideh",
     titleFa: "کباب کوبیده خانگی",
     titleEn: "Homemade Koobideh",
     descriptionFa: "کباب اصیل ایرانی با زعفران و برنج",
@@ -139,11 +149,80 @@ export const trendingRecipes: Recipe[] = [
     likes: 4560,
     tags: ["persian", "grill"],
   },
+  {
+    id: "5",
+    slug: "chocolate-lava-cake",
+    titleFa: "کیک لاوای شکلاتی",
+    titleEn: "Chocolate Lava Cake",
+    descriptionFa: "کیک شکلاتی گرم با مغز روان شکلاتی و بستنی وانیلی",
+    descriptionEn: "Warm chocolate cake with molten center and vanilla ice cream",
+    image:
+      "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=800&q=80",
+    author: "Maryam J.",
+    authorAvatar:
+      "https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=100&q=80",
+    rating: 4.9,
+    cookTime: 30,
+    likes: 5210,
+    tags: ["desserts", "chocolate"],
+  },
+  {
+    id: "6",
+    slug: "shakshuka-breakfast",
+    titleFa: "شکشوکای صبحانه‌ای",
+    titleEn: "Shakshuka Breakfast",
+    descriptionFa: "تخم‌مرغ پخته در سس گوجه ادویه‌ای با نان تازه",
+    descriptionEn: "Eggs poached in spiced tomato sauce with fresh bread",
+    image:
+      "https://images.unsplash.com/photo-1590412200988-a436970781fa?w=800&q=80",
+    author: "Reza M.",
+    authorAvatar:
+      "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&q=80",
+    rating: 4.6,
+    cookTime: 20,
+    likes: 1540,
+    tags: ["breakfast", "quick"],
+  },
+  {
+    id: "7",
+    slug: "grilled-salmon-asparagus",
+    titleFa: "سالمون گریل با مارچوبه",
+    titleEn: "Grilled Salmon with Asparagus",
+    descriptionFa: "فیله سالمون گریل با مارچوبه و سس لیمو",
+    descriptionEn: "Grilled salmon fillet with asparagus and lemon sauce",
+    image:
+      "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=800&q=80",
+    author: "Sara M.",
+    authorAvatar:
+      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80",
+    rating: 4.8,
+    cookTime: 35,
+    likes: 2890,
+    tags: ["seafood", "healthy"],
+  },
+  {
+    id: "8",
+    slug: "ghormeh-sabzi",
+    titleFa: "قورمه سبزی اصیل",
+    titleEn: "Authentic Ghormeh Sabzi",
+    descriptionFa: "خورشت سنتی ایرانی با سبزی معطر و لوبیا قرمز",
+    descriptionEn: "Traditional Persian herb stew with kidney beans",
+    image:
+      "https://images.unsplash.com/photo-1574484284002-952d92456975?w=800&q=80",
+    author: "Neda K.",
+    authorAvatar:
+      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80",
+    rating: 4.9,
+    cookTime: 120,
+    likes: 6780,
+    tags: ["persian", "meat"],
+  },
 ];
 
 export const featuredRestaurants: Restaurant[] = [
   {
     id: "1",
+    slug: "naranj-traditional",
     nameFa: "رستوران سنتی نارنج",
     nameEn: "Naranj Traditional",
     cuisineFa: "ایرانی · سنتی",
@@ -160,6 +239,7 @@ export const featuredRestaurants: Restaurant[] = [
   },
   {
     id: "2",
+    slug: "terrace-italiano",
     nameFa: "تراس ایتالیایی",
     nameEn: "Terrace Italiano",
     cuisineFa: "ایتالیایی · پیتزا",
@@ -176,6 +256,7 @@ export const featuredRestaurants: Restaurant[] = [
   },
   {
     id: "3",
+    slug: "blue-cafe",
     nameFa: "کافه آبی",
     nameEn: "Blue Cafe",
     cuisineFa: "کافه · برانچ",
@@ -189,6 +270,40 @@ export const featuredRestaurants: Restaurant[] = [
     locationEn: "Shiraz, Iran",
     featuredReviewFa: "فضای دنج و قهوه عالی برای آخر هفته",
     featuredReviewEn: "Cozy vibe and excellent coffee for weekends",
+  },
+  {
+    id: "4",
+    slug: "saffron-grill",
+    nameFa: "گریل زعفران",
+    nameEn: "Saffron Grill",
+    cuisineFa: "کباب · استیک",
+    cuisineEn: "Grill · Steak",
+    image:
+      "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=80",
+    rating: 4.7,
+    reviewCount: 489,
+    priceLevel: 3,
+    locationFa: "تهران، ایران",
+    locationEn: "Tehran, Iran",
+    featuredReviewFa: "کباب‌های بی‌نظیر با گوشت تازه و زعفران اصل",
+    featuredReviewEn: "Incredible kebabs with fresh meat and real saffron",
+  },
+  {
+    id: "5",
+    slug: "ocean-catch",
+    nameFa: "اوشن کچ",
+    nameEn: "Ocean Catch",
+    cuisineFa: "دریایی · سوشی",
+    cuisineEn: "Seafood · Sushi",
+    image:
+      "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=80",
+    rating: 4.5,
+    reviewCount: 156,
+    priceLevel: 4,
+    locationFa: "کرج، ایران",
+    locationEn: "Karaj, Iran",
+    featuredReviewFa: "سوشی تازه و میگوهای گریل فوق‌العاده",
+    featuredReviewEn: "Fresh sushi and amazing grilled shrimp",
   },
 ];
 
@@ -247,5 +362,62 @@ export const communityPosts: CommunityPost[] = [
     timestampEn: "Yesterday",
     tagFa: "نکته آشپزی",
     tagEn: "Cooking tip",
+  },
+  {
+    id: "4",
+    author: "Pouya N.",
+    authorAvatar:
+      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80",
+    contentFa:
+      "باغچه ریحان راه انداختم و تازه‌ترین ریحان رو برای پستو استفاده می‌کنم 🌿 تفاوت طعم با ریحان خشک شب و روزه!",
+    contentEn:
+      "Started a basil garden and use the freshest basil for pesto 🌿 The flavor difference from dried is night and day!",
+    image:
+      "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=800&q=80",
+    likes: 645,
+    comments: 78,
+    shares: 34,
+    timestampFa: "۳ روز پیش",
+    timestampEn: "3 days ago",
+    tagFa: "باغچه خانگی",
+    tagEn: "Home garden",
+  },
+  {
+    id: "5",
+    author: "Sahar T.",
+    authorAvatar:
+      "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=100&q=80",
+    contentFa:
+      "اولین بار نان سوردا (sourdough) پختم! ۲۴ ساعت فرمنت کردم و پوستش بیرون شد ترد و عالی 🍞",
+    contentEn:
+      "Baked my first sourdough! 24h ferment and the crust came out crisp and perfect 🍞",
+    image:
+      "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&q=80",
+    likes: 1203,
+    comments: 187,
+    shares: 92,
+    timestampFa: "۴ روز پیش",
+    timestampEn: "4 days ago",
+    tagFa: "نانپزی",
+    tagEn: "Bread baking",
+  },
+  {
+    id: "6",
+    author: "Bahram K.",
+    authorAvatar:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80",
+    contentFa:
+      "رستوران جدید زعفران رو امتحان کردم — کباب کوبیده فوق‌العاده با ته‌دیگ Crunchy 👌",
+    contentEn:
+      "Tried the new Saffron Grill restaurant — amazing koobideh with crunchy tahdig 👌",
+    image:
+      "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=800&q=80",
+    likes: 478,
+    comments: 53,
+    shares: 19,
+    timestampFa: "هفته پیش",
+    timestampEn: "A week ago",
+    tagFa: "نقد رستوران",
+    tagEn: "Review",
   },
 ];

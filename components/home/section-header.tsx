@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowRightIcon } from "lucide-react";
+import Link from "next/link";
 
 import { ScrollReveal } from "@/components/motion/scroll-reveal";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,7 @@ type SectionHeaderProps = {
   title: string;
   subtitle?: string;
   viewAllLabel?: string;
+  viewAllHref?: string;
   onViewAll?: () => void;
   className?: string;
   eyebrow?: string;
@@ -19,6 +21,7 @@ export function SectionHeader({
   title,
   subtitle,
   viewAllLabel,
+  viewAllHref,
   onViewAll,
   className,
   eyebrow,
@@ -42,7 +45,25 @@ export function SectionHeader({
           )}
           <div className="mt-4 h-1 w-16 rounded-full bg-gradient-to-r from-orange-500 to-amber-400" />
         </div>
-        {viewAllLabel && (
+        {viewAllLabel && viewAllHref && (
+          <Button
+            variant="outline"
+            className="group shrink-0 border-orange-500/30 text-orange-600 hover:border-orange-500 hover:bg-orange-500/5 dark:text-orange-400"
+            render={
+              <Link
+                href={viewAllHref}
+                aria-label={viewAllLabel}
+              />
+            }
+          >
+            {viewAllLabel}
+            <ArrowRightIcon
+              className="size-4 transition-transform group-hover:translate-x-0.5 rtl:rotate-180 rtl:group-hover:-translate-x-0.5"
+              aria-hidden
+            />
+          </Button>
+        )}
+        {viewAllLabel && !viewAllHref && onViewAll && (
           <Button
             variant="outline"
             className="group shrink-0 border-orange-500/30 text-orange-600 hover:border-orange-500 hover:bg-orange-500/5 dark:text-orange-400"

@@ -15,11 +15,12 @@ export function RestaurantReviewsSection() {
       className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8"
       aria-labelledby="restaurants-heading"
     >
-      <SectionHeader
-        title={dictionary.restaurants.title}
-        subtitle={dictionary.restaurants.subtitle}
-        viewAllLabel={dictionary.restaurants.viewAll}
-      />
+        <SectionHeader
+          title={dictionary.restaurants.title}
+          subtitle={dictionary.restaurants.subtitle}
+          viewAllLabel={dictionary.restaurants.viewAll}
+          viewAllHref="/restaurants"
+        />
 
       <StaggerGrid
         className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"

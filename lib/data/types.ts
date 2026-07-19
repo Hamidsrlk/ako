@@ -1,5 +1,6 @@
 export type FoodCategory = {
   id: string;
+  slug: string;
   nameKey: string;
   nameFa: string;
   nameEn: string;
@@ -10,6 +11,7 @@ export type FoodCategory = {
 
 export type Recipe = {
   id: string;
+  slug: string;
   titleFa: string;
   titleEn: string;
   descriptionFa: string;
@@ -25,6 +27,7 @@ export type Recipe = {
 
 export type Restaurant = {
   id: string;
+  slug: string;
   nameFa: string;
   nameEn: string;
   cuisineFa: string;
