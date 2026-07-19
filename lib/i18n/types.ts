@@ -123,6 +123,49 @@ export type Dictionary = {
     noRecipes: string;
     notFound: string;
   };
+  auth: {
+    signInTitle: string;
+    signUpTitle: string;
+    signInSubtitle: string;
+    signUpSubtitle: string;
+    name: string;
+    email: string;
+    password: string;
+    signIn: string;
+    signUp: string;
+    signOut: string;
+    noAccount: string;
+    hasAccount: string;
+    emailTaken: string;
+    invalidCredentials: string;
+    weakPassword: string;
+    emptyFields: string;
+    demoAdminHint: string;
+    profile: string;
+    admin: string;
+  };
+  profile: {
+    title: string;
+    joined: string;
+    myRecipes: string;
+    myReviews: string;
+    savedRecipes: string;
+    editProfile: string;
+    bio: string;
+    save: string;
+    notSignedIn: string;
+    pleaseSignIn: string;
+  };
+  admin: {
+    title: string;
+    subtitle: string;
+    users: string;
+    recipes: string;
+    restaurants: string;
+    reviews: string;
+    notAdmin: string;
+    notAdminDescription: string;
+  };
   common: {
     rating: string;
     minutes: string;
