@@ -72,7 +72,7 @@
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
+  --radius: 0.75rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -134,6 +134,29 @@
   .font-heading {
     font-family: var(--font-heading);
   }
+}
+
+/* Custom modern styles */
+:root {
+  /* Primary color palette */
+  --primary-emerald: #10b981;
+  --primary-emerald-dark: #059669;
+  --primary-emerald-light: #34d399;
+  --primary-orange: #f97316;
+  --primary-orange-dark: #ea580c;
+  --primary-orange-light: #fb923c;
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+  --white: #ffffff;
+  --black: #000000;
 }
 
 @keyframes fade-in-up {
@@ -238,6 +261,71 @@
 .card-shine:hover::after {
   opacity: 1;
   animation: shimmer 0.8s ease forwards;
+}
+
+/* Modern glass effect */
+.bg-glass {
+  @apply bg-white/10 backdrop-blur-md border border-white/20;
+}
+
+.bg-glass-dark {
+  @apply bg-black/20 backdrop-blur-md border border-white/10;
+}
+
+/* Modern button styles */
+.btn-primary {
+  @apply inline-flex items-center justify-center rounded-full bg-emerald-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-500/25 transition-all duration-300 hover:bg-emerald-600 hover:shadow-emerald-500/30 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center rounded-full border border-emerald-500 bg-transparent px-6 py-3 text-sm font-semibold text-emerald-600 shadow-sm transition-all duration-300 hover:bg-emerald-50 hover:text-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 dark:hover:bg-emerald-900/30 dark:hover:text-emerald-400;
+}
+
+.btn-outline {
+  @apply inline-flex items-center justify-center rounded-full border border-slate-200 bg-transparent px-6 py-3 text-sm font-medium text-slate-700 shadow-sm transition-all duration-300 hover:bg-slate-50 hover:text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-slate-100;
+}
+
+/* Modern container styles */
+.container-modern {
+  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+/* Modern section styling */
+.section-spacing {
+  @apply py-20;
+}
+
+/* Modern card styles */
+.card-modern {
+  @apply rounded-2xl border border-slate-100 bg-white shadow-sm transition-all duration-300 hover:shadow-md dark:border-slate-800 dark:bg-slate-900;
+}
+
+/* Text styles */
+.text-heading {
+  @apply font-heading text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl xl:text-7xl;
+}
+
+.text-subheading {
+  @apply text-lg leading-relaxed text-slate-600 dark:text-slate-400;
+}
+
+/* Tag styles */
+.tag-pill {
+  @apply inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700;
+}
+
+/* Animation utilities */
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

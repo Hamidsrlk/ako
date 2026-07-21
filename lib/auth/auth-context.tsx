@@ -1,6 +1,13 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useSyncExternalStore } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useSyncExternalStore,
+} from "react";
 
 export type UserRole = "user" | "admin";
 
@@ -8,7 +15,7 @@ export type StoredUser = {
   id: string;
   name: string;
   email: string;
-  password: string; // note: only suitable for demo (localStorage)
+  password: string; // demo only
   role: UserRole;
   bio?: string;
   avatarUrl?: string;
@@ -23,33 +30,66 @@ const SESSION_KEY = "ako:session";
 const SESSION_EVENT = "ako:session-change";
 const USERS_EVENT = "ako:users-change";
 
+const EMPTY_USERS_ARRAY: StoredUser[] = [];
+const EMPTY_SESSION_ID: string | null = null;
+
+// cached snapshots
+let cachedUsersRaw = "";
+let cachedUsersSnapshot: StoredUser[] = EMPTY_USERS_ARRAY;
+
+let cachedSessionRaw: string | null = null;
+let cachedSessionSnapshot: string | null = null;
+
 // ---------- low-level storage helpers ----------
 
-function readUsers(): StoredUser[] {
-  if (typeof window === "undefined") return [];
+function readUsersSnapshot(): StoredUser[] {
+  if (typeof window === "undefined") return EMPTY_USERS_ARRAY;
+
   try {
-    const raw = localStorage.getItem(USERS_KEY);
-    if (!raw) return [];
+    const raw = localStorage.getItem(USERS_KEY) ?? "";
+    if (raw === cachedUsersRaw) return cachedUsersSnapshot;
+
+    cachedUsersRaw = raw;
+
+    if (!raw) {
+      cachedUsersSnapshot = EMPTY_USERS_ARRAY;
+      return cachedUsersSnapshot;
+    }
+
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
+    cachedUsersSnapshot = Array.isArray(parsed) ? parsed : EMPTY_USERS_ARRAY;
+    return cachedUsersSnapshot;
   } catch {
-    return [];
+    cachedUsersRaw = "";
+    cachedUsersSnapshot = EMPTY_USERS_ARRAY;
+    return cachedUsersSnapshot;
   }
 }
 
 function writeUsers(users: StoredUser[]) {
   localStorage.setItem(USERS_KEY, JSON.stringify(users));
+  cachedUsersRaw = "";
   window.dispatchEvent(new Event(USERS_EVENT));
 }
 
-function readSessionId(): string | null {
-  if (typeof window === "undefined") return null;
-  return localStorage.getItem(SESSION_KEY);
+function readSessionSnapshot(): string | null {
+  if (typeof window === "undefined") return EMPTY_SESSION_ID;
+
+  const raw = localStorage.getItem(SESSION_KEY);
+  if (raw === cachedSessionRaw) return cachedSessionSnapshot;
+
+  cachedSessionRaw = raw;
+  cachedSessionSnapshot = raw;
+  return raw;
 }
 
 function writeSessionId(id: string | null) {
   if (id === null) localStorage.removeItem(SESSION_KEY);
   else localStorage.setItem(SESSION_KEY, id);
+
+  cachedSessionRaw = null;
+  cachedSessionSnapshot = null;
+
   window.dispatchEvent(new Event(SESSION_EVENT));
 }
 
@@ -96,8 +136,9 @@ type AuthContextValue = {
 const AuthContext = createContext<AuthContextValue | null>(null);
 
 function ensureSeedAdmin() {
-  const users = readUsers();
+  const users = readUsersSnapshot();
   if (users.some((u) => u.role === "admin")) return;
+
   const admin: StoredUser = {
     id: "admin-seed",
     name: "Admin",
@@ -107,22 +148,23 @@ function ensureSeedAdmin() {
     bio: "سایت‌مدیر AKO",
     createdAt: Date.now(),
   };
+
   writeUsers([...users, admin]);
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const sessionId = useSyncExternalStore(
     subscribeSession,
-    readSessionId,
-    () => null,
-  );
-  const users = useSyncExternalStore(
-    subscribeUsers,
-    readUsers,
-    () => [] as StoredUser[],
+    readSessionSnapshot,
+    () => EMPTY_SESSION_ID,
   );
 
-  // seed the demo admin once on mount
+  const users = useSyncExternalStore(
+    subscribeUsers,
+    readUsersSnapshot,
+    () => EMPTY_USERS_ARRAY,
+  );
+
   useEffect(() => {
     ensureSeedAdmin();
   }, []);
@@ -141,10 +183,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (input.password.length < 6) {
       return { ok: false, error: "weak_password" };
     }
-    const users = readUsers();
+
+    const users = readUsersSnapshot();
     if (users.some((u) => u.email.toLowerCase() === email)) {
       return { ok: false, error: "email_taken" };
     }
+
     const newUser: StoredUser = {
       id: `u_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
       name: input.name.trim(),
@@ -153,6 +197,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       role: "user",
       createdAt: Date.now(),
     };
+
     writeUsers([...users, newUser]);
     writeSessionId(newUser.id);
     return { ok: true, user: toPublic(newUser) };
@@ -160,11 +205,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const login: AuthContextValue["login"] = useCallback((input) => {
     const email = input.email.trim().toLowerCase();
-    const users = readUsers();
+    const users = readUsersSnapshot();
     const found = users.find((u) => u.email.toLowerCase() === email);
+
     if (!found || found.password !== input.password) {
       return { ok: false, error: "invalid_credentials" };
     }
+
     writeSessionId(found.id);
     return { ok: true, user: toPublic(found) };
   }, []);

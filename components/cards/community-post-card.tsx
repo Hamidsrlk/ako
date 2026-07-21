@@ -1,92 +1,64 @@
 "use client";
 
-import {
-  HeartIcon,
-  MessageCircleIcon,
-  Share2Icon,
-} from "lucide-react";
-
-import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
 import { OptimizedImage } from "@/components/ui/optimized-image";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { useLocale, useTranslations } from "@/hooks/use-translations";
-import type { CommunityPost } from "@/lib/data/types";
-import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
-type CommunityPostCardProps = {
-  post: CommunityPost;
-  className?: string;
-};
-
-export function CommunityPostCard({ post, className }: CommunityPostCardProps) {
-  const { locale } = useLocale();
-  const { dictionary } = useTranslations();
-
-  const content = locale === "fa" ? post.contentFa : post.contentEn;
-  const timestamp = locale === "fa" ? post.timestampFa : post.timestampEn;
-  const tag = locale === "fa" ? post.tagFa : post.tagEn;
-
+export function CommunityPostCard({ post }: { post: any }) {
   return (
-    <Card
-      className={cn(
-        "overflow-hidden transition-all duration-300 hover:shadow-lg hover:ring-orange-500/10",
-        className
-      )}
+    <motion.div
+      whileHover={{ y: -5 }}
+      transition={{ duration: 0.2 }}
+      className="group relative overflow-hidden rounded-2xl border border-border bg-background shadow-sm transition-shadow duration-300 hover:shadow-lg dark:shadow-black/10"
     >
-      <CardHeader className="flex-row items-start gap-3 space-y-0">
-        <Avatar>
-          <AvatarImage src={post.authorAvatar} alt={post.author} />
-          <AvatarFallback>{post.author[0]}</AvatarFallback>
-        </Avatar>
-        <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="font-semibold">{post.author}</span>
-            <Badge variant="secondary" className="text-xs">
-              {tag}
-            </Badge>
-          </div>
-          <time className="text-xs text-muted-foreground">{timestamp}</time>
+      <Link
+        href={`/community/${post.slug || post.id}`}
+        className="block"
+      >
+        <div className="relative aspect-square w-full overflow-hidden">
+          <OptimizedImage
+            src={post.image}
+            alt={post.title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
         </div>
-      </CardHeader>
-
-      <CardContent className="space-y-4">
-        <p className="leading-relaxed">{content}</p>
-
-        {post.image && (
-          <div className="relative aspect-video overflow-hidden rounded-xl">
-            <OptimizedImage
-              src={post.image}
-              alt=""
-              fill
-              sizes="(max-width: 768px) 100vw, 33vw"
-              className="object-cover"
-            />
+        
+        <div className="p-4">
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
+              <span className="text-sm font-medium text-orange-500">
+                {post.author}
+              </span>
+              <span className="text-sm text-muted-foreground">•</span>
+              <span className="text-sm text-muted-foreground">
+                {post.date}
+              </span>
+            </div>
           </div>
-        )}
-
-        <div
-          className="flex items-center gap-4 border-t pt-3 text-sm text-muted-foreground"
-          role="group"
-          aria-label="Post engagement"
-        >
-          <span className="inline-flex items-center gap-1.5">
-            <HeartIcon className="size-4" aria-hidden />
-            {post.likes.toLocaleString(locale === "fa" ? "fa-IR" : "en-US")}{" "}
-            {dictionary.community.likes}
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <MessageCircleIcon className="size-4" aria-hidden />
-            {post.comments}{" "}
-            {dictionary.community.comments}
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <Share2Icon className="size-4" aria-hidden />
-            {post.shares}{" "}
-            {dictionary.community.shares}
-          </span>
+          
+          <h3 className="mt-2 text-lg font-semibold text-foreground group-hover:text-orange-500 transition-colors line-clamp-2">
+            {post.title}
+          </h3>
+          
+          <div className="mt-3 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="flex items-center gap-1 text-sm text-muted-foreground">
+                💬 {post.commentCount}
+              </span>
+              <span className="flex items-center gap-1 text-sm text-muted-foreground">
+                ❤️ {post.likeCount}
+              </span>
+            </div>
+            <span className="text-sm text-muted-foreground">
+              {post.category}
+            </span>
+          </div>
         </div>
-      </CardContent>
-    </Card>
+      </Link>
+    </motion.div>
   );
 }
+

@@ -1,111 +1,50 @@
 "use client";
 
-import { MapPinIcon, StarIcon } from "lucide-react";
 import Link from "next/link";
-
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { OptimizedImage } from "@/components/ui/optimized-image";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { useLocale, useTranslations } from "@/hooks/use-translations";
-import type { Restaurant } from "@/lib/data/types";
-import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
-type RestaurantCardProps = {
-  restaurant: Restaurant;
-  className?: string;
-};
-
-function PriceLevel({ level }: { level: Restaurant["priceLevel"] }) {
+export function RestaurantCard({ restaurant }: { restaurant: any }) {
   return (
-    <span className="text-sm font-medium text-muted-foreground" aria-hidden>
-      {"$".repeat(level)}
-      <span className="opacity-30">{"$".repeat(4 - level)}</span>
-    </span>
-  );
-}
-
-export function RestaurantCard({ restaurant, className }: RestaurantCardProps) {
-  const { locale } = useLocale();
-  const { dictionary } = useTranslations();
-
-  const name = locale === "fa" ? restaurant.nameFa : restaurant.nameEn;
-  const cuisine = locale === "fa" ? restaurant.cuisineFa : restaurant.cuisineEn;
-  const location =
-    locale === "fa" ? restaurant.locationFa : restaurant.locationEn;
-  const review =
-    locale === "fa"
-      ? restaurant.featuredReviewFa
-      : restaurant.featuredReviewEn;
-  const href = `/restaurants/${restaurant.slug}`;
-
-  return (
-    <Link
-      href={href}
-      className="group/card-link block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2 rounded-xl"
+    <motion.div
+      whileHover={{ y: -5 }}
+      transition={{ duration: 0.2 }}
+      className="group relative overflow-hidden rounded-2xl border border-border bg-background shadow-sm transition-shadow duration-300 hover:shadow-lg dark:shadow-black/10"
     >
-      <Card
-        className={cn(
-          "group overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:ring-orange-500/20",
-          className
-        )}
+      <Link
+        href={`/restaurants/${restaurant.slug || restaurant.id}`}
+        className="block"
       >
-        <div className="relative aspect-[16/10] overflow-hidden">
+        <div className="relative aspect-square w-full overflow-hidden">
           <OptimizedImage
             src={restaurant.image}
-            alt={name}
+            alt={restaurant.name}
             fill
-            sizes="(max-width: 768px) 100vw, 33vw"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          <Badge className="absolute start-3 top-3 bg-white/90 text-foreground backdrop-blur-sm dark:bg-black/70 dark:text-white">
-            {cuisine}
-          </Badge>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
         </div>
-
-        <CardHeader className="pb-0">
-          <div className="flex items-start justify-between gap-2">
-            <CardTitle className="text-lg font-semibold transition-colors group-hover:text-orange-600 dark:group-hover:text-orange-400">
-              {name}
-            </CardTitle>
-            <div className="flex shrink-0 items-center gap-1 rounded-full bg-orange-500/10 px-2 py-0.5 text-sm font-semibold text-orange-600 dark:text-orange-400">
-              <StarIcon className="size-3.5 fill-current" aria-hidden />
-              {restaurant.rating}
+        
+        <div className="p-4">
+          <h3 className="text-lg font-semibold text-foreground group-hover:text-orange-500 transition-colors">
+            {restaurant.name}
+          </h3>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {restaurant.cuisine}
+          </p>
+          <div className="mt-2 flex items-center justify-between">
+            <div className="flex items-center gap-1">
+              <span className="text-yellow-500">⭐</span>
+              <span className="text-sm text-muted-foreground">{restaurant.rating}</span>
             </div>
-          </div>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <MapPinIcon className="size-3.5 shrink-0" aria-hidden />
-            <span>{location}</span>
-          </div>
-        </CardHeader>
-
-        <CardContent>
-          <blockquote className="border-s-2 border-orange-500/40 ps-3 text-sm italic text-muted-foreground">
-            &ldquo;{review}&rdquo;
-          </blockquote>
-          <div className="mt-3 flex items-center justify-between">
-            <span className="text-xs text-muted-foreground">
-              {restaurant.reviewCount.toLocaleString(
-                locale === "fa" ? "fa-IR" : "en-US"
-              )}{" "}
-              {dictionary.restaurants.reviews}
+            <span className="text-sm text-muted-foreground">
+              {restaurant.priceLevel}
             </span>
-            <PriceLevel level={restaurant.priceLevel} />
           </div>
-        </CardContent>
-
-        <CardFooter className="border-t-0 bg-transparent pt-0">
-          <Button variant="outline" className="w-full" size="lg" tabIndex={-1}>
-            {dictionary.restaurants.viewRestaurant}
-          </Button>
-        </CardFooter>
-      </Card>
-    </Link>
+        </div>
+      </Link>
+    </motion.div>
   );
 }
+

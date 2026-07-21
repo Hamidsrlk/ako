@@ -5,41 +5,55 @@ import { SectionHeader } from "@/components/home/section-header";
 import { StaggerGrid } from "@/components/motion/stagger-grid";
 import { useTranslations } from "@/hooks/use-translations";
 import { trendingRecipes } from "@/lib/data/mock-data";
+import { motion } from "framer-motion";
 
 export function TrendingRecipesSection() {
   const { dictionary } = useTranslations();
 
   return (
     <section
-      id="recipes"
-      className="relative overflow-hidden bg-muted/40 py-20"
-      aria-labelledby="trending-heading"
+      id="trending-recipes"
+      className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8"
+      aria-labelledby="trending-recipes-heading"
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-orange-500/5 via-transparent to-transparent" />
-
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+      >
         <SectionHeader
           title={dictionary.trending.title}
           subtitle={dictionary.trending.subtitle}
           viewAllLabel={dictionary.trending.viewAll}
-          viewAllHref="/recipes"
-          eyebrow={dictionary.trending.trending}
+          eyebrow="Trending"
         />
+      </motion.div>
 
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
         <StaggerGrid
-          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
-          staggerMs={90}
+          className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          staggerMs={100}
         >
-          {trendingRecipes.map((recipe, index) => (
-            <RecipeCard
+          {trendingRecipes.map((recipe) => (
+            <motion.div
               key={recipe.id}
-              recipe={recipe}
-              featured={index === 0}
-              index={index}
-            />
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3 }}
+              whileHover={{ y: -5 }}
+            >
+              <RecipeCard recipe={recipe} />
+            </motion.div>
           ))}
         </StaggerGrid>
-      </div>
+      </motion.div>
     </section>
   );
 }

@@ -1,8 +1,10 @@
 import { CategoriesSection } from "@/components/home/categories-section";
 import { CommunityFeedSection } from "@/components/home/community-feed-section";
+import { FeaturedEditorial } from "@/components/home/featured-editorial";
 import { HeroSection } from "@/components/home/hero-section";
 import { RestaurantReviewsSection } from "@/components/home/restaurant-reviews-section";
 import { TrendingRecipesSection } from "@/components/home/trending-recipes-section";
+import { TrustMarquee } from "@/components/home/trust-marquee";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 
@@ -30,8 +32,10 @@ export default function Home() {
       <Navbar />
       <main id="main-content">
         <HeroSection />
+        <TrustMarquee />
         <CategoriesSection />
         <TrendingRecipesSection />
+        <FeaturedEditorial />
         <RestaurantReviewsSection />
         <CommunityFeedSection />
       </main>

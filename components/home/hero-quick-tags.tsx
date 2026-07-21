@@ -2,9 +2,9 @@
 
 import { SparklesIcon } from "lucide-react";
 import Link from "next/link";
-
 import { useTranslations } from "@/hooks/use-translations";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 const tagKeys = ["quick", "healthy", "persian", "dessert", "weeknight"] as const;
 
@@ -18,18 +18,27 @@ export function HeroQuickTags() {
         {dictionary.hero.trendingSearches}
       </span>
       {tagKeys.map((key, i) => (
-        <Link
+        <motion.span
           key={key}
-          href={`/search?q=${encodeURIComponent(dictionary.hero.tags[key])}`}
-          className={cn(
-            "rounded-full border border-orange-500/20 bg-orange-500/5 px-3 py-1 text-xs font-medium text-orange-700 transition-all hover:-translate-y-0.5 hover:border-orange-500/40 hover:bg-orange-500/10 hover:shadow-md dark:text-orange-300",
-            "animate-fade-in-up opacity-0",
-          )}
-          style={{ animationDelay: `${400 + i * 60}ms`, animationFillMode: "forwards" }}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3, delay: i * 0.1 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
-          {dictionary.hero.tags[key]}
-        </Link>
+          <Link
+            href={`/search?q=${encodeURIComponent(dictionary.hero.tags[key])}`}
+            className={cn(
+              "rounded-full border border-orange-500/20 bg-orange-500/5 px-3 py-1 text-xs font-medium text-orange-700 transition-all hover:-translate-y-0.5 hover:border-orange-500/40 hover:bg-orange-500/10 hover:shadow-md dark:text-orange-300",
+              "animate-fade-in-up opacity-0",
+            )}
+            style={{ animationDelay: `${400 + i * 60}ms`, animationFillMode: "forwards" }}
+          >
+            {dictionary.hero.tags[key]}
+          </Link>
+        </motion.span>
       ))}
     </div>
   );
 }
+
