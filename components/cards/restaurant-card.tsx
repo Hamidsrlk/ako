@@ -1,50 +1,55 @@
 "use client";
 
 import Link from "next/link";
-import { OptimizedImage } from "@/components/ui/optimized-image";
-import { motion } from "framer-motion";
 
-export function RestaurantCard({ restaurant }: { restaurant: any }) {
+import { Badge } from "@/components/ui/badge";
+import { OptimizedImage } from "@/components/ui/optimized-image";
+import { useLocale } from "@/hooks/use-translations";
+import type { Restaurant } from "@/lib/data/types";
+
+type RestaurantCardProps = {
+  restaurant: Restaurant;
+};
+
+const priceSymbols = ["$", "$$", "$$$", "$$$$"];
+
+export function RestaurantCard({ restaurant }: RestaurantCardProps) {
+  const { locale } = useLocale();
+
+  const name = locale === "fa" ? restaurant.nameFa : restaurant.nameEn;
+  const cuisine = locale === "fa" ? restaurant.cuisineFa : restaurant.cuisineEn;
+  const location = locale === "fa" ? restaurant.locationFa : restaurant.locationEn;
+
   return (
-    <motion.div
-      whileHover={{ y: -5 }}
-      transition={{ duration: 0.2 }}
-      className="group relative overflow-hidden rounded-2xl border border-border bg-background shadow-sm transition-shadow duration-300 hover:shadow-lg dark:shadow-black/10"
-    >
+    <div className="group relative overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
       <Link
-        href={`/restaurants/${restaurant.slug || restaurant.id}`}
+        href={`/restaurants/${restaurant.slug}`}
         className="block"
       >
-        <div className="relative aspect-square w-full overflow-hidden">
+        <div className="relative aspect-[4/3] w-full overflow-hidden">
           <OptimizedImage
             src={restaurant.image}
-            alt={restaurant.name}
+            alt={name}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          <Badge className="absolute end-3 top-3 bg-white/20 text-white backdrop-blur-sm">
+            {priceSymbols[restaurant.priceLevel - 1]}
+          </Badge>
         </div>
-        
+
         <div className="p-4">
-          <h3 className="text-lg font-semibold text-foreground group-hover:text-orange-500 transition-colors">
-            {restaurant.name}
+          <h3 className="text-lg font-semibold text-foreground transition-colors group-hover:text-orange-500">
+            {name}
           </h3>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {restaurant.cuisine}
+          <p className="mt-0.5 text-sm text-muted-foreground">
+            {cuisine}
           </p>
-          <div className="mt-2 flex items-center justify-between">
-            <div className="flex items-center gap-1">
-              <span className="text-yellow-500">⭐</span>
-              <span className="text-sm text-muted-foreground">{restaurant.rating}</span>
-            </div>
-            <span className="text-sm text-muted-foreground">
-              {restaurant.priceLevel}
-            </span>
-          </div>
+          <p className="text-xs text-muted-foreground/60">{location}</p>
         </div>
       </Link>
-    </motion.div>
+    </div>
   );
 }
-

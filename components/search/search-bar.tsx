@@ -53,7 +53,7 @@ export function SearchBar({
           placeholder={resolvedPlaceholder}
           aria-label={dictionary.search.ariaLabel}
           className={cn(
-            "ps-10",
+            "ps-10 rounded-xl transition-all duration-200 focus-visible:border-orange-500/50 focus-visible:ring-orange-500/15",
             size === "lg" && "h-12 text-base md:text-base"
           )}
         />

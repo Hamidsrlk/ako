@@ -19,9 +19,9 @@ export const foodCategories: FoodCategory[] = [
     nameFa: "ایرانی",
     nameEn: "Persian",
     image:
-      "https://images.unsplash.com/photo-1601050690597-df0568fa7098?w=600&q=80",
+      "https://images.unsplash.com/photo-1574484284002-952d92456975?w=600&q=80",
     recipeCount: 842,
-    icon: "🍚",
+    icon: "P",
   },
   {
     id: "italian",
@@ -32,7 +32,7 @@ export const foodCategories: FoodCategory[] = [
     image:
       "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80",
     recipeCount: 1203,
-    icon: "🍕",
+    icon: "I",
   },
   {
     id: "desserts",
@@ -43,7 +43,7 @@ export const foodCategories: FoodCategory[] = [
     image:
       "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=600&q=80",
     recipeCount: 654,
-    icon: "🍰",
+    icon: "D",
   },
   {
     id: "healthy",
@@ -54,7 +54,7 @@ export const foodCategories: FoodCategory[] = [
     image:
       "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=600&q=80",
     recipeCount: 978,
-    icon: "🥗",
+    icon: "H",
   },
   {
     id: "seafood",
@@ -63,9 +63,9 @@ export const foodCategories: FoodCategory[] = [
     nameFa: "دریایی",
     nameEn: "Seafood",
     image:
-      "https://images.unsplash.com/photo-1519708227418-c8fd9a32b9a2?w=600&q=80",
+      "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=600&q=80",
     recipeCount: 421,
-    icon: "🦐",
+    icon: "S",
   },
   {
     id: "breakfast",
@@ -76,7 +76,7 @@ export const foodCategories: FoodCategory[] = [
     image:
       "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=600&q=80",
     recipeCount: 567,
-    icon: "🥞",
+    icon: "B",
   },
 ];
 
@@ -140,7 +140,7 @@ export const trendingRecipes: Recipe[] = [
     descriptionFa: "کباب اصیل ایرانی با زعفران و برنج",
     descriptionEn: "Authentic Persian koobideh with saffron rice",
     image:
-      "https://images.unsplash.com/photo-1529042410799-b751142a3d5a?w=800&q=80",
+      "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=800&q=80",
     author: "Neda K.",
     authorAvatar:
       "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80",
@@ -296,7 +296,7 @@ export const featuredRestaurants: Restaurant[] = [
     cuisineFa: "دریایی · سوشی",
     cuisineEn: "Seafood · Sushi",
     image:
-      "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&q=80",
+      "https://images.unsplash.com/photo-1553621042-f6e147245754?w=800&q=80",
     rating: 4.5,
     reviewCount: 156,
     priceLevel: 4,
@@ -314,11 +314,11 @@ export const communityPosts: CommunityPost[] = [
     authorAvatar:
       "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80",
     contentFa:
-      "امروز اولین بار زرشک پلو با مرغ درست کردم و خانواده عاشقش شدند! دستور پخت را در پروفایلم گذاشتم 🍗",
+      "امروز اولین بار زرشک پلو با مرغ درست کردم و خانواده عاشقش شدند! دستور پخت را در پروفایلم گذاشتم",
     contentEn:
-      "Made zereshk polo with chicken for the first time today — family loved it! Recipe is on my profile 🍗",
+      "Made zereshk polo with chicken for the first time today — family loved it! Recipe is on my profile",
     image:
-      "https://images.unsplash.com/photo-1603133872877-684f208fb84b?w=800&q=80",
+      "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&q=80",
     likes: 428,
     comments: 56,
     shares: 23,
@@ -333,9 +333,9 @@ export const communityPosts: CommunityPost[] = [
     authorAvatar:
       "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80",
     contentFa:
-      "کافه جدید محله را امتحان کردم — لatte art فوق‌العاده و staff خیلی مهربان بودند ☕",
+      "کافه جدید محله را امتحان کردم — لاته آرت فوق‌العاده و کارکنان خیلی مهربان بودند",
     contentEn:
-      "Tried the new neighborhood cafe — amazing latte art and super friendly staff ☕",
+      "Tried the new neighborhood cafe — amazing latte art and super friendly staff",
     image:
       "https://images.unsplash.com/photo-1495474472283-4d4bc789f0ae?w=800&q=80",
     likes: 312,
@@ -360,6 +360,8 @@ export const communityPosts: CommunityPost[] = [
     shares: 67,
     timestampFa: "دیروز",
     timestampEn: "Yesterday",
+    image:
+      "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&q=80",
     tagFa: "نکته آشپزی",
     tagEn: "Cooking tip",
   },
@@ -369,11 +371,11 @@ export const communityPosts: CommunityPost[] = [
     authorAvatar:
       "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80",
     contentFa:
-      "باغچه ریحان راه انداختم و تازه‌ترین ریحان رو برای پستو استفاده می‌کنم 🌿 تفاوت طعم با ریحان خشک شب و روزه!",
+      "باغچه ریحان راه انداختم و تازه‌ترین ریحان رو برای پستو استفاده می‌کنم. تفاوت طعم با ریحان خشک شب و روزه!",
     contentEn:
-      "Started a basil garden and use the freshest basil for pesto 🌿 The flavor difference from dried is night and day!",
+      "Started a basil garden and use the freshest basil for pesto. The flavor difference from dried is night and day!",
     image:
-      "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=800&q=80",
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
     likes: 645,
     comments: 78,
     shares: 34,
@@ -388,11 +390,11 @@ export const communityPosts: CommunityPost[] = [
     authorAvatar:
       "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=100&q=80",
     contentFa:
-      "اولین بار نان سوردا (sourdough) پختم! ۲۴ ساعت فرمنت کردم و پوستش بیرون شد ترد و عالی 🍞",
+      "اولین بار نان سوردا پختم! ۲۴ ساعت تخمیر کردم و پوستش بیرون شد ترد و عالی",
     contentEn:
-      "Baked my first sourdough! 24h ferment and the crust came out crisp and perfect 🍞",
+      "Baked my first sourdough! 24h ferment and the crust came out crisp and perfect",
     image:
-      "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&q=80",
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80",
     likes: 1203,
     comments: 187,
     shares: 92,
@@ -407,11 +409,11 @@ export const communityPosts: CommunityPost[] = [
     authorAvatar:
       "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80",
     contentFa:
-      "رستوران جدید زعفران رو امتحان کردم — کباب کوبیده فوق‌العاده با ته‌دیگ Crunchy 👌",
+      "رستوران جدید زعفران رو امتحان کردم — کباب کوبیده فوق‌العاده با ته‌دیگ ترد",
     contentEn:
-      "Tried the new Saffron Grill restaurant — amazing koobideh with crunchy tahdig 👌",
+      "Tried the new Saffron Grill restaurant — amazing koobideh with crunchy tahdig",
     image:
-      "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=800&q=80",
+      "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80",
     likes: 478,
     comments: 53,
     shares: 19,

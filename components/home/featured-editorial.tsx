@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRightIcon, ClockIcon, StarIcon } from "lucide-react";
+import { ArrowRightIcon, ClockIcon } from "lucide-react";
 
 import { ScrollReveal } from "@/components/motion/scroll-reveal";
 import { Badge } from "@/components/ui/badge";
@@ -12,7 +12,7 @@ import { trendingRecipes } from "@/lib/data/mock-data";
 export function FeaturedEditorial() {
   const { dictionary } = useTranslations();
   const { locale } = useLocale();
-  const featured = trendingRecipes[3];
+  const featured = trendingRecipes[4];
 
   const title = locale === "fa" ? featured.titleFa : featured.titleEn;
   const description =
@@ -58,10 +58,6 @@ export function FeaturedEditorial() {
               </p>
 
               <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-background/80 px-3 py-1 ring-1 ring-border">
-                  <StarIcon className="size-4 fill-orange-500 text-orange-500" />
-                  {featured.rating}
-                </span>
                 <span className="inline-flex items-center gap-1.5">
                   <ClockIcon className="size-4" />
                   {featured.cookTime} {dictionary.trending.minRead}

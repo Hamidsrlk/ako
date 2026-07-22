@@ -1,6 +1,6 @@
 "use client";
 
-import { ClockIcon, HeartIcon, StarIcon } from "lucide-react";
+import { ClockIcon, HeartIcon } from "lucide-react";
 import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
@@ -67,13 +67,6 @@ export function RecipeCard({
                 {dictionary.trending.editorsPick}
               </Badge>
             )}
-            <Badge
-              variant="secondary"
-              className="w-fit gap-1 bg-white/90 text-foreground backdrop-blur-sm dark:bg-black/70 dark:text-white"
-            >
-              <StarIcon className="size-3 fill-orange-500 text-orange-500" />
-              {recipe.rating}
-            </Badge>
           </div>
 
           <div className="absolute inset-x-0 bottom-0 translate-y-2 p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">

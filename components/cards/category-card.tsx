@@ -39,10 +39,12 @@ export function CategoryCard({ category, className }: CategoryCardProps) {
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
       <div className="relative z-10 w-full p-4 text-start">
-        <span className="text-2xl" aria-hidden>
-          {category.icon}
-        </span>
-        <h3 className="mt-1 text-lg font-bold text-white">{name}</h3>
+        {category.icon && (
+          <span className="flex size-8 items-center justify-center rounded-lg bg-white/15 text-sm font-bold text-white backdrop-blur-sm" aria-hidden>
+            {category.icon}
+          </span>
+        )}
+        <h3 className="mt-2 text-lg font-bold text-white">{name}</h3>
         <p className="text-sm text-white/80">
           {category.recipeCount.toLocaleString(
             locale === "fa" ? "fa-IR" : "en-US"

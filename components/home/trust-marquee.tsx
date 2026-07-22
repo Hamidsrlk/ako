@@ -1,10 +1,10 @@
 "use client";
 
-import { AwardIcon, ShieldCheckIcon, StarIcon, UsersIcon } from "lucide-react";
+import { AwardIcon, HeartIcon, ShieldCheckIcon, UsersIcon } from "lucide-react";
 
 import { useTranslations } from "@/hooks/use-translations";
 
-const icons = [StarIcon, UsersIcon, AwardIcon, ShieldCheckIcon];
+const icons = [HeartIcon, UsersIcon, AwardIcon, ShieldCheckIcon];
 
 export function TrustMarquee() {
   const { dictionary } = useTranslations();

@@ -32,6 +32,7 @@ export function ThemeToggle() {
       size="icon-sm"
       aria-label={dictionary.theme.toggle}
       onClick={() => setTheme(isDark ? "light" : "dark")}
+      className="transition-all duration-200 hover:bg-orange-500/8 hover:text-orange-500"
     >
       {isDark ? (
         <SunIcon className="size-4" aria-hidden />

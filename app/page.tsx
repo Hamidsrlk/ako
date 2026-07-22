@@ -1,5 +1,6 @@
 import { CategoriesSection } from "@/components/home/categories-section";
 import { CommunityFeedSection } from "@/components/home/community-feed-section";
+import { CtaBanner } from "@/components/home/cta-banner";
 import { FeaturedEditorial } from "@/components/home/featured-editorial";
 import { HeroSection } from "@/components/home/hero-section";
 import { RestaurantReviewsSection } from "@/components/home/restaurant-reviews-section";
@@ -38,6 +39,7 @@ export default function Home() {
         <FeaturedEditorial />
         <RestaurantReviewsSection />
         <CommunityFeedSection />
+        <CtaBanner />
       </main>
       <Footer />
     </>

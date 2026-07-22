@@ -24,6 +24,7 @@ export function LanguageSwitcher() {
             variant="ghost"
             size="icon-sm"
             aria-label={dictionary.language.switch}
+            className="transition-all duration-200 hover:bg-orange-500/8 hover:text-orange-500"
           />
         }
       >
