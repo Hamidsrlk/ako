@@ -21,7 +21,7 @@ export function CommunityPostCard({ post }: CommunityPostCardProps) {
   const tag = locale === "fa" ? post.tagFa : post.tagEn;
 
   return (
-    <div className="group relative overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+    <div className="group relative overflow-hidden rounded-2xl border border-border bg-card shadow-sm ring-1 ring-foreground/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
       <Link
         href={`/community/${post.id}`}
         className="block"

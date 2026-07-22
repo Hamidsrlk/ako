@@ -30,7 +30,7 @@ export async function GET() {
 export async function PUT(request: NextRequest) {
   try {
     const body = (await request.json()) as HeroConfig;
-    if (!body.image || !body.title) {
+    if (!body.image || !body.en?.title) {
       return NextResponse.json(
         { error: "image and title are required" },
         { status: 400 },

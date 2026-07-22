@@ -41,7 +41,7 @@ export function RestaurantCard({ restaurant }: RestaurantCardProps) {
         </div>
 
         <div className="p-4">
-          <h3 className="text-lg font-semibold text-foreground transition-colors group-hover:text-orange-500">
+          <h3 className="text-base font-semibold text-foreground transition-colors group-hover:text-orange-500">
             {name}
           </h3>
           <p className="mt-0.5 text-sm text-muted-foreground">

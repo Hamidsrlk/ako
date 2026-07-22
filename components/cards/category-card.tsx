@@ -44,7 +44,7 @@ export function CategoryCard({ category, className }: CategoryCardProps) {
             {category.icon}
           </span>
         )}
-        <h3 className="mt-2 text-lg font-bold text-white">{name}</h3>
+        <h3 className="mt-2 text-base font-bold text-white">{name}</h3>
         <p className="text-sm text-white/80">
           {category.recipeCount.toLocaleString(
             locale === "fa" ? "fa-IR" : "en-US"

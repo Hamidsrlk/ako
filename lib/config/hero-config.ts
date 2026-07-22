@@ -1,19 +1,27 @@
 "use client";
 
-export type HeroConfig = {
-  image: string;
+type LocaleText = {
   badge: string;
   title: string;
   titleHighlight: string;
   subtitle: string;
-  rating: {
-    value: string;
-    label: string;
-  };
+};
+
+type StatConfig = {
+  value: string;
+  en: string;
+  fa: string;
+};
+
+export type HeroConfig = {
+  image: string;
+  ratingValue: string;
+  en: LocaleText;
+  fa: LocaleText;
   stats: {
-    recipes: { value: string; label: string };
-    restaurants: { value: string; label: string };
-    members: { value: string; label: string };
+    recipes: StatConfig;
+    restaurants: StatConfig;
+    members: StatConfig;
   };
 };
 
@@ -24,19 +32,25 @@ const CHANGE_EVENT = "ako:hero-config-change";
 export const defaultHeroConfig: HeroConfig = {
   image:
     "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80",
-  badge: "Welcome to AKO",
-  title: "Discover",
-  titleHighlight: "Amazing Flavors",
-  subtitle:
-    "Share recipes, review restaurants, sell homemade food, and discover new meals with a vibrant food community.",
-  rating: {
-    value: "4.9",
-    label: "Rating",
+  ratingValue: "4.9",
+  en: {
+    badge: "Welcome to AKO",
+    title: "Discover",
+    titleHighlight: "Amazing Flavors",
+    subtitle:
+      "Share recipes, review restaurants, sell homemade food, and discover new meals with a vibrant food community.",
+  },
+  fa: {
+    badge: "به AKO خوش آمدید",
+    title: "کشف",
+    titleHighlight: "طعم‌های شگفت‌انگیز",
+    subtitle:
+      "دستور پخت به اشتراک بگذارید، رستوران‌ها را نقد کنید، غذای خانگی بفروشید و غذاهای جدید کشف کنید.",
   },
   stats: {
-    recipes: { value: "12K+", label: "Recipes" },
-    restaurants: { value: "3.2K", label: "Restaurants" },
-    members: { value: "89K", label: "Active members" },
+    recipes: { value: "12K+", en: "Recipes", fa: "دستور پخت" },
+    restaurants: { value: "3.2K", en: "Restaurants", fa: "رستوران" },
+    members: { value: "89K", en: "Active members", fa: "عضو فعال" },
   },
 };
 

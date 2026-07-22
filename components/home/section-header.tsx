@@ -3,7 +3,6 @@
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "@/hooks/use-translations";
-import { motion } from "framer-motion";
 
 import { ScrollReveal } from "@/components/motion/scroll-reveal";
 import { Button } from "@/components/ui/button";
@@ -31,37 +30,27 @@ export function SectionHeader({
   const { dictionary } = useTranslations();
 
   return (
-    <ScrollReveal className={cn("mb-10", className)}>
+    <ScrollReveal className={cn("mb-8", className)}>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
+        <div>
           {eyebrow && (
-            <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-orange-600 dark:text-orange-400">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-orange-600 dark:text-orange-400">
               {eyebrow}
             </p>
           )}
-          <h2 className="font-heading text-3xl font-bold tracking-tight md:text-4xl lg:text-[2.75rem]">
+          <h2 className="font-heading text-2xl font-bold tracking-tight md:text-3xl lg:text-4xl">
             {title}
           </h2>
           {subtitle && (
-            <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
               {subtitle}
             </p>
           )}
-          <div className="mt-4 h-1 w-16 rounded-full bg-gradient-to-r from-orange-500 to-amber-400" />
-        </motion.div>
+          <div className="mt-3 h-0.5 w-12 rounded-full bg-gradient-to-r from-orange-500 to-amber-400" />
+        </div>
 
         {viewAllLabel && viewAllHref && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
+          <div>
             <Button
               variant="outline"
               className="group shrink-0 border-orange-500/30 text-orange-600 hover:border-orange-500 hover:bg-orange-500/5 dark:text-orange-400"
@@ -78,15 +67,10 @@ export function SectionHeader({
                 aria-hidden
               />
             </Button>
-          </motion.div>
+          </div>
         )}
         {viewAllLabel && !viewAllHref && onViewAll && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
+          <div>
             <Button
               variant="outline"
               className="group shrink-0 border-orange-500/30 text-orange-600 hover:border-orange-500 hover:bg-orange-500/5 dark:text-orange-400"
@@ -98,7 +82,7 @@ export function SectionHeader({
                 aria-hidden
               />
             </Button>
-          </motion.div>
+          </div>
         )}
       </div>
     </ScrollReveal>

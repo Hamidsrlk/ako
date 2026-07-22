@@ -23,11 +23,11 @@ export function HeroSection() {
     readHeroConfig,
   );
 
-  const meta = dictionary.hero;
+  const text = locale === "fa" ? config.fa : config.en;
 
   return (
     <section
-      className="relative min-h-[90vh] overflow-hidden sm:min-h-[85vh]"
+      className="relative min-h-[85vh] overflow-hidden sm:min-h-[80vh]"
       aria-labelledby="hero-heading"
     >
       {/* Full-bleed background image */}
@@ -52,57 +52,57 @@ export function HeroSection() {
         <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-background to-transparent" />
       </div>
 
-      <div className="relative z-10 mx-auto flex min-h-[90vh] max-w-7xl flex-col justify-center px-4 pb-8 pt-20 sm:min-h-[85vh] sm:px-6 lg:px-8">
-        <div className="max-w-2xl space-y-6">
+      <div className="relative z-10 mx-auto flex min-h-[85vh] max-w-7xl flex-col justify-center px-4 pb-8 pt-20 sm:min-h-[80vh] sm:px-6 lg:px-8">
+        <div className="max-w-2xl space-y-5">
           <div
             className="animate-fade-in-up opacity-0"
             style={{ animationDelay: "80ms", animationFillMode: "forwards" }}
           >
             <Badge className="border-orange-500/20 bg-orange-500/15 text-orange-600 shadow-sm backdrop-blur-sm dark:text-orange-300">
               <SparklesIcon className="size-3.5" aria-hidden />
-              {config.badge}
+              {text.badge}
             </Badge>
           </div>
 
           <h1
             id="hero-heading"
-            className="font-heading animate-fade-in-up text-[clamp(2.5rem,8vw,5.5rem)] font-bold leading-[1.05] tracking-tight text-white opacity-0 drop-shadow-lg"
+            className="font-heading animate-fade-in-up text-[clamp(2rem,5vw,3.75rem)] font-bold leading-[1.1] tracking-tight text-white opacity-0 drop-shadow-lg"
             style={{ animationDelay: "160ms", animationFillMode: "forwards" }}
           >
-            {config.title}
-            <span className="mt-2 block bg-gradient-to-r from-orange-300 via-amber-200 to-orange-400 bg-clip-text text-transparent">
-              {config.titleHighlight}
+            {text.title}
+            <span className="mt-1.5 block bg-gradient-to-r from-orange-300 via-amber-200 to-orange-400 bg-clip-text text-transparent">
+              {text.titleHighlight}
             </span>
           </h1>
 
           <p
-            className="animate-fade-in-up max-w-xl text-balance text-lg leading-relaxed text-white/80 opacity-0 drop-shadow sm:text-xl"
+            className="animate-fade-in-up max-w-xl text-balance text-base leading-relaxed text-white/80 opacity-0 drop-shadow sm:text-lg"
             style={{ animationDelay: "260ms", animationFillMode: "forwards" }}
           >
-            {config.subtitle}
+            {text.subtitle}
           </p>
 
           <div
-            className="flex flex-wrap items-center gap-4 pt-2 animate-fade-in-up opacity-0"
+            className="flex flex-wrap items-center gap-4 pt-1 animate-fade-in-up opacity-0"
             style={{ animationDelay: "360ms", animationFillMode: "forwards" }}
           >
             <Link
               href="/recipes"
-              className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-orange-500/30 transition-all duration-300 hover:-translate-y-0.5 hover:bg-orange-600 hover:shadow-xl hover:shadow-orange-500/40"
+              className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-orange-500/30 transition-all duration-300 hover:-translate-y-0.5 hover:bg-orange-600 hover:shadow-xl hover:shadow-orange-500/40"
             >
               {dictionary.trending.viewAll}
               <ArrowLeftIcon className="size-4 rtl:rotate-180" aria-hidden />
             </Link>
             <Link
               href="/community"
-              className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-7 py-3.5 text-sm font-semibold text-white shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/20 hover:shadow-xl"
+              className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-7 py-3 text-sm font-semibold text-white shadow-lg backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/20 hover:shadow-xl"
             >
               {dictionary.cta.secondary}
             </Link>
           </div>
 
           <div
-            className="pt-4 animate-fade-in-up opacity-0"
+            className="pt-2 animate-fade-in-up opacity-0"
             style={{ animationDelay: "460ms", animationFillMode: "forwards" }}
           >
             <div className="max-w-xl rounded-2xl bg-card/95 p-1 shadow-2xl shadow-black/15 backdrop-blur-lg ring-1 ring-white/10">
@@ -117,22 +117,22 @@ export function HeroSection() {
 
         {/* Stats strip */}
         <dl
-          className="mt-auto grid w-full grid-cols-3 gap-4 rounded-2xl border border-white/10 bg-background/60 px-6 py-5 shadow-lg backdrop-blur-xl animate-fade-in-up opacity-0 sm:px-10"
+          className="mt-auto grid w-full grid-cols-3 gap-4 rounded-2xl border border-white/10 bg-background/60 px-6 py-4 shadow-lg backdrop-blur-xl animate-fade-in-up opacity-0 sm:px-10"
           style={{ animationDelay: "600ms", animationFillMode: "forwards" }}
         >
-          {Object.values(config.stats).map(({ value, label }, i) => (
-            <div
-              key={label}
-              className="text-center sm:text-start"
-            >
-              <dt className="font-heading text-2xl font-bold text-orange-500 sm:text-3xl">
-                {value}
-              </dt>
-              <dd className="mt-0.5 text-xs text-muted-foreground sm:text-sm">
-                {label}
-              </dd>
-            </div>
-          ))}
+          {Object.values(config.stats).map((stat) => {
+            const label = locale === "fa" ? stat.fa : stat.en;
+            return (
+              <div key={label} className="text-center sm:text-start">
+                <dt className="font-heading text-xl font-bold text-orange-500 sm:text-2xl">
+                  {stat.value}
+                </dt>
+                <dd className="mt-0.5 text-xs text-muted-foreground sm:text-sm">
+                  {label}
+                </dd>
+              </div>
+            );
+          })}
         </dl>
       </div>
 
@@ -146,10 +146,10 @@ export function HeroSection() {
         </span>
         <div>
           <p className="text-xs font-semibold leading-none text-foreground">
-            {config.rating.value}
+            {config.ratingValue}
           </p>
           <p className="mt-px text-[9px] text-muted-foreground">
-            {config.rating.label}
+            {dictionary.common.rating}
           </p>
         </div>
       </div>

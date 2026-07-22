@@ -93,7 +93,7 @@ export function RecipeCard({
         </div>
 
         <CardHeader className="pb-0">
-          <CardTitle className="font-heading text-lg font-semibold leading-snug transition-colors group-hover:text-orange-600 dark:group-hover:text-orange-400">
+          <CardTitle className="font-heading text-base font-semibold leading-snug transition-colors group-hover:text-orange-600 dark:group-hover:text-orange-400">
             {title}
           </CardTitle>
         </CardHeader>

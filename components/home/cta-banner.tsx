@@ -10,7 +10,7 @@ export function CtaBanner() {
   const { dictionary } = useTranslations();
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
       <ScrollReveal direction="none">
         <div className="relative overflow-hidden rounded-3xl bg-foreground px-8 py-14 text-background sm:px-12 sm:py-16">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,oklch(0.705_0.189_47.604_/_0.35),transparent_50%)]" />
@@ -25,10 +25,10 @@ export function CtaBanner() {
               <SparklesIcon className="size-4 text-orange-400" aria-hidden />
               {dictionary.cta.badge}
             </span>
-            <h2 className="font-heading mt-6 text-3xl font-bold sm:text-4xl md:text-5xl">
+            <h2 className="font-heading mt-6 text-2xl font-bold sm:text-3xl md:text-4xl">
               {dictionary.cta.title}
             </h2>
-            <p className="mt-4 text-lg text-white/70">{dictionary.cta.subtitle}</p>
+            <p className="mt-3 text-base text-white/70">{dictionary.cta.subtitle}</p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button
                 size="lg"

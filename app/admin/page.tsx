@@ -19,12 +19,14 @@ import {
   updateHeroConfig,
 } from "@/lib/config/hero-config";
 
+type Tab = "en" | "fa";
+
 export default function AdminPage() {
   const { user } = useAuth();
 
   if (!user || user.role !== "admin") {
     return (
-      <div className="flex min-h-screen items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center p-6">
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle>Access Denied</CardTitle>
@@ -44,36 +46,30 @@ function AdminForm() {
   const [config, setConfig] = useState<HeroConfig>(defaultHeroConfig);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [tab, setTab] = useState<Tab>("en");
 
   useEffect(() => {
     setConfig(readHeroConfig());
   }, []);
 
-  const update = useCallback(
-    <K extends keyof HeroConfig>(key: K, value: HeroConfig[K]) => {
-      setConfig((prev) => ({ ...prev, [key]: value }));
-      setSaved(false);
-    },
-    [],
-  );
+  const update = useCallback(<K extends keyof HeroConfig>(key: K, value: HeroConfig[K]) => {
+    setConfig((prev) => ({ ...prev, [key]: value }));
+    setSaved(false);
+  }, []);
 
-  const updateRating = useCallback(
-    <K extends keyof HeroConfig["rating"]>(key: K, value: string) => {
+  const updateLocaleText = useCallback(
+    (locale: Tab, field: string, value: string) => {
       setConfig((prev) => ({
         ...prev,
-        rating: { ...prev.rating, [key]: value },
+        [locale]: { ...prev[locale], [field]: value },
       }));
       setSaved(false);
     },
     [],
   );
 
-  const updateStats = useCallback(
-    <K extends keyof HeroConfig["stats"]>(
-      statKey: K,
-      field: "value" | "label",
-      value: string,
-    ) => {
+  const updateStat = useCallback(
+    (statKey: keyof HeroConfig["stats"], field: "value" | "en" | "fa", value: string) => {
       setConfig((prev) => ({
         ...prev,
         stats: {
@@ -121,9 +117,7 @@ function AdminForm() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <label className="mb-1 block text-sm font-medium">
-                Image URL
-              </label>
+              <label className="mb-1 block text-sm font-medium">Image URL</label>
               <Input
                 value={config.image}
                 onChange={(e) => update("image", e.target.value)}
@@ -146,38 +140,61 @@ function AdminForm() {
           <CardHeader>
             <CardTitle>Text Content</CardTitle>
             <CardDescription>
-              Main heading, subtitle, and badge text.
+              Main heading, subtitle, and badge text in each language.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
+            <div className="flex gap-2 border-b pb-3">
+              <button
+                type="button"
+                onClick={() => setTab("en")}
+                className={`rounded-lg px-4 py-1.5 text-sm font-medium transition-colors ${
+                  tab === "en"
+                    ? "bg-orange-500 text-white"
+                    : "bg-muted text-muted-foreground hover:bg-muted/80"
+                }`}
+              >
+                English
+              </button>
+              <button
+                type="button"
+                onClick={() => setTab("fa")}
+                className={`rounded-lg px-4 py-1.5 text-sm font-medium transition-colors ${
+                  tab === "fa"
+                    ? "bg-orange-500 text-white"
+                    : "bg-muted text-muted-foreground hover:bg-muted/80"
+                }`}
+              >
+                فارسی
+              </button>
+            </div>
+
             <div>
               <label className="mb-1 block text-sm font-medium">Badge</label>
               <Input
-                value={config.badge}
-                onChange={(e) => update("badge", e.target.value)}
+                value={config[tab].badge}
+                onChange={(e) => updateLocaleText(tab, "badge", e.target.value)}
               />
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium">Title</label>
               <Input
-                value={config.title}
-                onChange={(e) => update("title", e.target.value)}
+                value={config[tab].title}
+                onChange={(e) => updateLocaleText(tab, "title", e.target.value)}
               />
             </div>
             <div>
-              <label className="mb-1 block text-sm font-medium">
-                Title Highlight
-              </label>
+              <label className="mb-1 block text-sm font-medium">Title Highlight</label>
               <Input
-                value={config.titleHighlight}
-                onChange={(e) => update("titleHighlight", e.target.value)}
+                value={config[tab].titleHighlight}
+                onChange={(e) => updateLocaleText(tab, "titleHighlight", e.target.value)}
               />
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium">Subtitle</label>
               <textarea
-                value={config.subtitle}
-                onChange={(e) => update("subtitle", e.target.value)}
+                value={config[tab].subtitle}
+                onChange={(e) => updateLocaleText(tab, "subtitle", e.target.value)}
                 rows={3}
                 className="w-full rounded-lg border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
               />
@@ -187,30 +204,18 @@ function AdminForm() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Rating Pill</CardTitle>
+            <CardTitle>Rating</CardTitle>
             <CardDescription>
               Floating rating badge displayed on the hero image.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <label className="mb-1 block text-sm font-medium">
-                Rating Value
-              </label>
+              <label className="mb-1 block text-sm font-medium">Rating Value</label>
               <Input
-                value={config.rating.value}
-                onChange={(e) => updateRating("value", e.target.value)}
+                value={config.ratingValue}
+                onChange={(e) => update("ratingValue", e.target.value)}
                 placeholder="4.9"
-              />
-            </div>
-            <div>
-              <label className="mb-1 block text-sm font-medium">
-                Rating Label
-              </label>
-              <Input
-                value={config.rating.label}
-                onChange={(e) => updateRating("label", e.target.value)}
-                placeholder="Rating"
               />
             </div>
           </CardContent>
@@ -224,34 +229,29 @@ function AdminForm() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            {(
-              Object.keys(defaultHeroConfig.stats) as Array<
-                keyof HeroConfig["stats"]
-              >
-            ).map((statKey) => (
-              <div key={statKey} className="space-y-2">
+            {(Object.keys(defaultHeroConfig.stats) as Array<keyof HeroConfig["stats"]>).map((statKey) => (
+              <div key={statKey} className="space-y-2 rounded-lg border bg-muted/30 p-4">
                 <p className="text-sm font-medium capitalize">{statKey}</p>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                   <div>
-                    <label className="mb-1 block text-xs text-muted-foreground">
-                      Value
-                    </label>
+                    <label className="mb-1 block text-xs text-muted-foreground">Value</label>
                     <Input
                       value={config.stats[statKey].value}
-                      onChange={(e) =>
-                        updateStats(statKey, "value", e.target.value)
-                      }
+                      onChange={(e) => updateStat(statKey, "value", e.target.value)}
                     />
                   </div>
                   <div>
-                    <label className="mb-1 block text-xs text-muted-foreground">
-                      Label
-                    </label>
+                    <label className="mb-1 block text-xs text-muted-foreground">English</label>
                     <Input
-                      value={config.stats[statKey].label}
-                      onChange={(e) =>
-                        updateStats(statKey, "label", e.target.value)
-                      }
+                      value={config.stats[statKey].en}
+                      onChange={(e) => updateStat(statKey, "en", e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label className="mb-1 block text-xs text-muted-foreground">فارسی</label>
+                    <Input
+                      value={config.stats[statKey].fa}
+                      onChange={(e) => updateStat(statKey, "fa", e.target.value)}
                     />
                   </div>
                 </div>

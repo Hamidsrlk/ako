@@ -20,7 +20,7 @@ export function FeaturedEditorial() {
 
   return (
     <section
-      className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8"
+      className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"
       aria-labelledby="featured-heading"
     >
       <ScrollReveal>
@@ -49,11 +49,11 @@ export function FeaturedEditorial() {
               </p>
               <h2
                 id="featured-heading"
-                className="font-heading mt-3 text-3xl font-bold leading-tight md:text-4xl lg:text-5xl"
+                className="font-heading mt-3 text-2xl font-bold leading-tight md:text-3xl lg:text-4xl"
               >
                 {title}
               </h2>
-              <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+              <p className="mt-3 text-base leading-relaxed text-muted-foreground">
                 {description}
               </p>
 
