@@ -1,0 +1,7 @@
+{
+  "title": "DeepSeek Coder",
+  "provider": "openai",
+  "model": "deepseek-coder",
+  "apiKey": "YOUR_DEEPSEEK_API_KEY",
+  "baseUrl": "https://api.deepseek.com/v1"
+}

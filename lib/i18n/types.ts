@@ -166,6 +166,31 @@ export type Dictionary = {
     notAdmin: string;
     notAdminDescription: string;
   };
+  footer: {
+    tagline: string;
+    explore: string;
+    company: string;
+    legal: string;
+    about: string;
+    careers: string;
+    contact: string;
+    privacy: string;
+    terms: string;
+    cookies: string;
+    newsletter: string;
+    newsletterPlaceholder: string;
+    subscribe: string;
+    rights: string;
+  };
+  theme: {
+    toggle: string;
+    light: string;
+    dark: string;
+    system: string;
+  };
+  language: {
+    switch: string;
+  };
   common: {
     rating: string;
     minutes: string;
