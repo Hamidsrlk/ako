@@ -15,7 +15,7 @@ import {
 import { useLocale, useTranslations } from "@/hooks/use-translations";
 import { cn } from "@/lib/utils";
 
-const SLIDE_INTERVAL = 6000;
+const SLIDE_INTERVAL = 3000;
 
 function useHeroSlideshow(imageCount: number) {
   const [index, setIndex] = useState(0);
@@ -44,6 +44,14 @@ function useHeroSlideshow(imageCount: number) {
     return stopTimer;
   }, [imageCount, startTimer, stopTimer]);
 
+  const goTo = useCallback(
+    (targetIndex: number) => {
+      setIndex(targetIndex);
+      startTimer();
+    },
+    [startTimer],
+  );
+
   const next = useCallback(() => {
     setIndex((prev) => (prev + 1) % imageCount);
     startTimer();
@@ -54,7 +62,7 @@ function useHeroSlideshow(imageCount: number) {
     startTimer();
   }, [imageCount, startTimer]);
 
-  return { index, next, prev, pause: stopTimer, resume: startTimer };
+  return { index, next, prev, goTo, pause: stopTimer, resume: startTimer };
 }
 
 type RevealDir = "up" | "left" | "fade" | "blur";
@@ -122,7 +130,7 @@ export function HeroSection() {
   );
 
   const images = config.images.length > 0 ? config.images : defaultHeroConfig.images;
-  const { index, pause, resume } = useHeroSlideshow(images.length);
+  const { index, goTo, pause, resume } = useHeroSlideshow(images.length);
   const text = locale === "fa" ? config.fa : config.en;
 
   return (
@@ -147,7 +155,7 @@ export function HeroSection() {
               alt=""
               className="size-full object-cover"
               style={{
-                animation: i === index ? "hero-zoom 6s ease-in-out forwards" : "none",
+                animation: i === index ? "hero-zoom 3s ease-in-out forwards" : "none",
               }}
             />
           </div>
@@ -163,16 +171,19 @@ export function HeroSection() {
 
       {/* Slideshow navigation dots */}
       {images.length > 1 && (
-        <div className="absolute bottom-36 start-1/2 z-30 flex -translate-x-1/2 gap-2 sm:bottom-32" aria-hidden>
+        <div className="absolute bottom-36 start-1/2 z-30 flex -translate-x-1/2 gap-2 sm:bottom-32">
           {images.map((_, i) => (
-            <span
+            <button
               key={i}
+              type="button"
+              onClick={() => goTo(i)}
               className={cn(
-                "rounded-full transition-all duration-500",
+                "rounded-full transition-all duration-500 cursor-pointer",
                 i === index
                   ? "h-1.5 w-6 bg-white"
-                  : "h-1.5 w-1.5 bg-white/40",
+                  : "h-1.5 w-1.5 bg-white/40 hover:bg-white/70",
               )}
+              aria-label={`Go to slide ${i + 1}`}
             />
           ))}
         </div>
@@ -191,21 +202,24 @@ export function HeroSection() {
             <RevealText direction="up" delay={160}>
               <h1
                 id="hero-heading"
-                className="font-heading text-[clamp(2rem,5vw,3.75rem)] font-bold leading-[1.1] tracking-tight text-white drop-shadow-lg"
+                className="font-heading text-[clamp(2rem,5vw,3.75rem)] font-bold leading-[1.1] tracking-tight bg-gradient-to-r from-white via-orange-100 to-white bg-clip-text text-transparent bg-[length:200%_100%] drop-shadow-lg motion-safe:animate-[shimmer-loop_8s_ease-in-out_infinite]"
               >
                 {text.title}
               </h1>
             </RevealText>
 
             <RevealText direction="left" delay={260}>
-              <span className="block bg-gradient-to-r from-orange-300 via-amber-200 to-orange-400 bg-clip-text text-transparent font-heading text-[clamp(2rem,5vw,3.75rem)] font-bold leading-[1.1] tracking-tight drop-shadow-lg bg-[length:200%_100%] motion-safe:animate-[shimmer-in_1s_ease-out_1.3s_both]">
+              <span className="block bg-gradient-to-r from-orange-300 via-amber-200 to-orange-400 bg-clip-text text-transparent font-heading text-[clamp(2rem,5vw,3.75rem)] font-bold leading-[1.1] tracking-tight drop-shadow-lg bg-[length:200%_100%] motion-safe:animate-[shimmer-loop_6s_ease-in-out_infinite]">
                 {text.titleHighlight}
               </span>
             </RevealText>
           </div>
 
           <RevealText direction="blur" delay={420}>
-            <p className="mt-5 max-w-xl text-balance text-base leading-relaxed text-white/80 drop-shadow sm:text-lg">
+            <p
+              className="max-w-xl text-balance text-base leading-relaxed text-white/80 drop-shadow sm:text-lg motion-safe:animate-[pulse-opacity_4s_ease-in-out_infinite]"
+              style={{ animationDelay: "1.2s" }}
+            >
               {text.subtitle}
             </p>
           </RevealText>
@@ -278,7 +292,7 @@ export function HeroSection() {
         </div>
       </RevealText>
 
-      <style>{`@keyframes hero-zoom { from { transform: scale(1); } to { transform: scale(1.04); } } @keyframes shimmer-in { 0% { background-position: 200% 0%; } 100% { background-position: 0% 0%; } }`}</style>
+      <style>{`@keyframes hero-zoom { from { transform: scale(1); } to { transform: scale(1.04); } } @keyframes shimmer-loop { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } } @keyframes pulse-opacity { 0%, 100% { opacity: 0.8; } 50% { opacity: 1; } }`}</style>
     </section>
   );
 }
