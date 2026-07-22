@@ -28,7 +28,7 @@ export function CtaBanner() {
             <h2 className="font-heading mt-6 text-2xl font-bold sm:text-3xl md:text-4xl">
               {dictionary.cta.title}
             </h2>
-            <p className="mt-3 text-base text-white/70">{dictionary.cta.subtitle}</p>
+            <p className="mt-3 text-base text-background/80">{dictionary.cta.subtitle}</p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button
                 size="lg"

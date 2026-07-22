@@ -15,6 +15,8 @@ import {
 import { useLocale, useTranslations } from "@/hooks/use-translations";
 import { cn } from "@/lib/utils";
 
+type SlideInVariant = "fade" | "scale" | "blur";
+
 const SLIDE_INTERVAL = 6000;
 
 function useHeroSlideshow(imageCount: number) {
@@ -93,7 +95,7 @@ export function HeroSection() {
             />
           </div>
         ))}
-        <style>{`@keyframes hero-zoom { from { transform: scale(1); } to { transform: scale(1.04); } }`}</style>
+        <style>{`@keyframes hero-zoom { from { transform: scale(1); } to { transform: scale(1.04); } } @keyframes shimmer-in { 0% { background-position: 200% 0%; } 100% { background-position: 0% 0%; } }`}</style>
       </div>
 
       {/* Overlay layers */}
@@ -129,19 +131,21 @@ export function HeroSection() {
             </Badge>
           </SlideIn>
 
-          <SlideIn delay={160}>
+          <SlideIn variant="scale" delay={160}>
             <h1
               id="hero-heading"
               className="font-heading text-[clamp(2rem,5vw,3.75rem)] font-bold leading-[1.1] tracking-tight text-white drop-shadow-lg"
             >
               {text.title}
-              <span className="mt-1.5 block bg-gradient-to-r from-orange-300 via-amber-200 to-orange-400 bg-clip-text text-transparent">
+              <span
+                className="mt-1.5 block bg-gradient-to-r from-orange-300 via-amber-200 to-orange-400 bg-clip-text text-transparent bg-[length:200%_100%] motion-safe:animate-[shimmer-in_1s_ease-out_0.7s_both]"
+              >
                 {text.titleHighlight}
               </span>
             </h1>
           </SlideIn>
 
-          <SlideIn delay={260}>
+          <SlideIn variant="blur" delay={260}>
             <p className="max-w-xl text-balance text-base leading-relaxed text-white/80 drop-shadow sm:text-lg">
               {text.subtitle}
             </p>
@@ -221,9 +225,11 @@ export function HeroSection() {
 function SlideIn({
   children,
   delay,
+  variant = "fade",
 }: {
   children: React.ReactNode;
   delay: number;
+  variant?: SlideInVariant;
 }) {
   const [visible, setVisible] = useState(false);
 
@@ -237,10 +243,19 @@ function SlideIn({
       className={cn(
         "transition-all duration-700 ease-out",
         visible
-          ? "translate-y-0 opacity-100"
-          : "translate-y-6 opacity-0",
+          ? [
+              "translate-y-0 opacity-100",
+              variant === "scale" && "scale-100",
+              variant === "blur" && "blur-none",
+            ]
+          : [
+              "opacity-0",
+              variant === "fade" && "translate-y-6",
+              variant === "scale" && "translate-y-4 scale-[0.93]",
+              variant === "blur" && "translate-y-2 blur-[4px]",
+            ],
       )}
-      style={{ willChange: "transform, opacity" }}
+      style={{ willChange: "transform, opacity, filter" }}
     >
       {children}
     </div>
