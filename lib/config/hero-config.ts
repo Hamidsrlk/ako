@@ -14,7 +14,7 @@ type StatConfig = {
 };
 
 export type HeroConfig = {
-  image: string;
+  images: string[];
   ratingValue: string;
   en: LocaleText;
   fa: LocaleText;
@@ -30,8 +30,12 @@ const CONFIG_KEY = "ako:hero-config";
 const CHANGE_EVENT = "ako:hero-config-change";
 
 export const defaultHeroConfig: HeroConfig = {
-  image:
+  images: [
     "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=80",
+    "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1600&q=80",
+    "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?w=1600&q=80",
+    "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=1600&q=80",
+  ],
   ratingValue: "4.9",
   en: {
     badge: "Welcome to AKO",
@@ -72,6 +76,12 @@ function readSnapshot(): HeroConfig {
     }
 
     const parsed = JSON.parse(raw) as Partial<HeroConfig>;
+
+    // Migrate old single-image config
+    if (!parsed.images && (parsed as Record<string, unknown>).image) {
+      parsed.images = [(parsed as Record<string, unknown>).image as string];
+    }
+
     cachedSnapshot = { ...defaultHeroConfig, ...parsed };
     return cachedSnapshot;
   } catch {

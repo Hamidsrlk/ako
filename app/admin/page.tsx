@@ -82,6 +82,31 @@ function AdminForm() {
     [],
   );
 
+  const updateImage = useCallback((index: number, value: string) => {
+    setConfig((prev) => {
+      const images = [...prev.images];
+      images[index] = value;
+      return { ...prev, images };
+    });
+    setSaved(false);
+  }, []);
+
+  const addImage = useCallback(() => {
+    setConfig((prev) => ({
+      ...prev,
+      images: [...prev.images, ""],
+    }));
+    setSaved(false);
+  }, []);
+
+  const removeImage = useCallback((index: number) => {
+    setConfig((prev) => ({
+      ...prev,
+      images: prev.images.filter((_, i) => i !== index),
+    }));
+    setSaved(false);
+  }, []);
+
   const handleSave = useCallback(async () => {
     setSaving(true);
     updateHeroConfig(config);
@@ -110,29 +135,51 @@ function AdminForm() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Background Image</CardTitle>
+            <CardTitle>Background Images</CardTitle>
             <CardDescription>
-              Full-bleed background image for the hero section.
+              Slideshow images for the hero banner. Add multiple images to enable
+              the crossfade slideshow.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div>
-              <label className="mb-1 block text-sm font-medium">Image URL</label>
-              <Input
-                value={config.image}
-                onChange={(e) => update("image", e.target.value)}
-                placeholder="https://images.unsplash.com/..."
-              />
-            </div>
-            {config.image && (
-              <div className="relative aspect-[21/9] overflow-hidden rounded-lg">
-                <img
-                  src={config.image}
-                  alt="Hero preview"
-                  className="size-full object-cover"
+            {config.images.map((src, i) => (
+              <div key={i} className="space-y-2 rounded-lg border bg-muted/30 p-4">
+                <div className="flex items-center justify-between">
+                  <label className="text-sm font-medium">Image {i + 1}</label>
+                  {config.images.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => removeImage(i)}
+                      className="text-xs text-red-500 hover:text-red-600 transition-colors"
+                    >
+                      Remove
+                    </button>
+                  )}
+                </div>
+                <Input
+                  value={src}
+                  onChange={(e) => updateImage(i, e.target.value)}
+                  placeholder="https://images.unsplash.com/..."
                 />
+                {src && (
+                  <div className="relative aspect-[21/9] overflow-hidden rounded-lg">
+                    <img
+                      src={src}
+                      alt={`Slide ${i + 1} preview`}
+                      className="size-full object-cover"
+                    />
+                  </div>
+                )}
               </div>
-            )}
+            ))}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={addImage}
+              className="w-full"
+            >
+              + Add Image
+            </Button>
           </CardContent>
         </Card>
 
