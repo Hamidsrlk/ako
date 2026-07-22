@@ -15,13 +15,15 @@ import {
 import { useLocale, useTranslations } from "@/hooks/use-translations";
 import { cn } from "@/lib/utils";
 
-type SlideInVariant = "fade" | "scale" | "blur";
-
 const SLIDE_INTERVAL = 6000;
 
 function useHeroSlideshow(imageCount: number) {
   const [index, setIndex] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    setIndex((prev) => Math.min(prev, Math.max(0, imageCount - 1)));
+  }, [imageCount]);
 
   const startTimer = useCallback(() => {
     stopTimer();
@@ -53,6 +55,61 @@ function useHeroSlideshow(imageCount: number) {
   }, [imageCount, startTimer]);
 
   return { index, next, prev, pause: stopTimer, resume: startTimer };
+}
+
+type RevealDir = "up" | "left" | "fade" | "blur";
+
+function RevealText({
+  children,
+  delay,
+  direction = "up",
+}: {
+  children: React.ReactNode;
+  delay: number;
+  direction?: RevealDir;
+}) {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setVisible(true), delay);
+    return () => clearTimeout(timer);
+  }, [delay]);
+
+  if (direction === "up" || direction === "left") {
+    return (
+      <div className="overflow-hidden">
+        <div
+          className={cn(
+            "transition-all duration-[900ms] ease-out",
+            visible
+              ? "translate-y-0 translate-x-0 opacity-100"
+              : direction === "up"
+                ? "translate-y-full opacity-0"
+                : "-translate-x-full opacity-0",
+          )}
+          style={{ willChange: "transform, opacity" }}
+        >
+          {children}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className={cn(
+        "transition-all duration-700 ease-out",
+        visible
+          ? "translate-y-0 opacity-100"
+          : direction === "blur"
+            ? "translate-y-3 blur-[4px] opacity-0"
+            : "translate-y-6 opacity-0",
+      )}
+      style={{ willChange: "transform, opacity, filter" }}
+    >
+      {children}
+    </div>
+  );
 }
 
 export function HeroSection() {
@@ -95,7 +152,6 @@ export function HeroSection() {
             />
           </div>
         ))}
-        <style>{`@keyframes hero-zoom { from { transform: scale(1); } to { transform: scale(1.04); } } @keyframes shimmer-in { 0% { background-position: 200% 0%; } 100% { background-position: 0% 0%; } }`}</style>
       </div>
 
       {/* Overlay layers */}
@@ -123,36 +179,39 @@ export function HeroSection() {
       )}
 
       <div className="relative z-10 mx-auto flex min-h-[85vh] max-w-7xl flex-col justify-center px-4 pb-8 pt-20 sm:min-h-[80vh] sm:px-6 lg:px-8">
-        <div className="max-w-2xl space-y-5">
-          <SlideIn delay={80}>
-            <Badge className="border-orange-500/20 bg-orange-500/15 text-orange-600 shadow-sm backdrop-blur-sm dark:text-orange-300">
+        <div className="max-w-2xl">
+          <RevealText direction="up" delay={80}>
+            <Badge className="mb-5 inline-flex items-center gap-1.5 border-orange-500/20 bg-orange-500/15 text-orange-600 shadow-sm backdrop-blur-sm dark:text-orange-300">
               <SparklesIcon className="size-3.5" aria-hidden />
               {text.badge}
             </Badge>
-          </SlideIn>
+          </RevealText>
 
-          <SlideIn variant="scale" delay={160}>
-            <h1
-              id="hero-heading"
-              className="font-heading text-[clamp(2rem,5vw,3.75rem)] font-bold leading-[1.1] tracking-tight text-white drop-shadow-lg"
-            >
-              {text.title}
-              <span
-                className="mt-1.5 block bg-gradient-to-r from-orange-300 via-amber-200 to-orange-400 bg-clip-text text-transparent bg-[length:200%_100%] motion-safe:animate-[shimmer-in_1s_ease-out_0.7s_both]"
+          <div className="space-y-3">
+            <RevealText direction="up" delay={160}>
+              <h1
+                id="hero-heading"
+                className="font-heading text-[clamp(2rem,5vw,3.75rem)] font-bold leading-[1.1] tracking-tight text-white drop-shadow-lg"
               >
+                {text.title}
+              </h1>
+            </RevealText>
+
+            <RevealText direction="left" delay={260}>
+              <span className="block bg-gradient-to-r from-orange-300 via-amber-200 to-orange-400 bg-clip-text text-transparent font-heading text-[clamp(2rem,5vw,3.75rem)] font-bold leading-[1.1] tracking-tight drop-shadow-lg bg-[length:200%_100%] motion-safe:animate-[shimmer-in_1s_ease-out_1.3s_both]">
                 {text.titleHighlight}
               </span>
-            </h1>
-          </SlideIn>
+            </RevealText>
+          </div>
 
-          <SlideIn variant="blur" delay={260}>
-            <p className="max-w-xl text-balance text-base leading-relaxed text-white/80 drop-shadow sm:text-lg">
+          <RevealText direction="blur" delay={420}>
+            <p className="mt-5 max-w-xl text-balance text-base leading-relaxed text-white/80 drop-shadow sm:text-lg">
               {text.subtitle}
             </p>
-          </SlideIn>
+          </RevealText>
 
-          <SlideIn delay={360}>
-            <div className="flex flex-wrap items-center gap-4 pt-1">
+          <RevealText direction="fade" delay={520}>
+            <div className="mt-6 flex flex-wrap items-center gap-4">
               <Link
                 href="/recipes"
                 className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-orange-500/30 transition-all duration-300 hover:-translate-y-0.5 hover:bg-orange-600 hover:shadow-xl hover:shadow-orange-500/40"
@@ -167,10 +226,10 @@ export function HeroSection() {
                 {dictionary.cta.secondary}
               </Link>
             </div>
-          </SlideIn>
+          </RevealText>
 
-          <SlideIn delay={460}>
-            <div className="pt-2">
+          <RevealText direction="fade" delay={620}>
+            <div className="mt-6">
               <div className="max-w-xl rounded-2xl bg-card/95 p-1 shadow-2xl shadow-black/15 backdrop-blur-lg ring-1 ring-white/10">
                 <SearchBar
                   placeholder={dictionary.hero.searchPlaceholder}
@@ -179,12 +238,12 @@ export function HeroSection() {
               </div>
               <HeroQuickTags />
             </div>
-          </SlideIn>
+          </RevealText>
         </div>
 
         {/* Stats strip */}
-        <SlideIn delay={600}>
-          <dl className="mt-auto grid w-full grid-cols-3 gap-4 rounded-2xl border border-white/10 bg-background/60 px-6 py-4 shadow-lg backdrop-blur-xl sm:px-10">
+        <RevealText direction="up" delay={720}>
+          <dl className="mt-8 grid w-full grid-cols-3 gap-4 rounded-2xl border border-white/10 bg-background/60 px-6 py-4 shadow-lg backdrop-blur-xl sm:px-10">
             {Object.values(config.stats).map((stat) => {
               const label = locale === "fa" ? stat.fa : stat.en;
               return (
@@ -199,11 +258,11 @@ export function HeroSection() {
               );
             })}
           </dl>
-        </SlideIn>
+        </RevealText>
       </div>
 
       {/* Floating rating pill */}
-      <SlideIn delay={500}>
+      <RevealText direction="fade" delay={550}>
         <div className="absolute end-6 top-28 z-20 hidden items-center gap-1.5 rounded-xl border border-white/15 bg-background/70 px-2.5 py-1 shadow-2xl backdrop-blur-xl sm:inline-flex lg:end-12 lg:top-36">
           <span className="flex size-5 items-center justify-center rounded-full bg-orange-500/15 text-orange-500">
             <StarIcon className="size-3 fill-current" aria-hidden />
@@ -217,49 +276,9 @@ export function HeroSection() {
             </p>
           </div>
         </div>
-      </SlideIn>
+      </RevealText>
+
+      <style>{`@keyframes hero-zoom { from { transform: scale(1); } to { transform: scale(1.04); } } @keyframes shimmer-in { 0% { background-position: 200% 0%; } 100% { background-position: 0% 0%; } }`}</style>
     </section>
   );
 }
-
-function SlideIn({
-  children,
-  delay,
-  variant = "fade",
-}: {
-  children: React.ReactNode;
-  delay: number;
-  variant?: SlideInVariant;
-}) {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setVisible(true), delay);
-    return () => clearTimeout(timer);
-  }, [delay]);
-
-  return (
-    <div
-      className={cn(
-        "transition-all duration-700 ease-out",
-        visible
-          ? [
-              "translate-y-0 opacity-100",
-              variant === "scale" && "scale-100",
-              variant === "blur" && "blur-none",
-            ]
-          : [
-              "opacity-0",
-              variant === "fade" && "translate-y-6",
-              variant === "scale" && "translate-y-4 scale-[0.93]",
-              variant === "blur" && "translate-y-2 blur-[4px]",
-            ],
-      )}
-      style={{ willChange: "transform, opacity, filter" }}
-    >
-      {children}
-    </div>
-  );
-}
-
-
