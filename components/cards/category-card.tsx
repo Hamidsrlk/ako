@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
 import { OptimizedImage } from "@/components/ui/optimized-image";
+import { RevealImage } from "@/components/motion/reveal-image";
 import { useLocale, useTranslations } from "@/hooks/use-translations";
 import type { FoodCategory } from "@/lib/data/types";
 import { cn } from "@/lib/utils";
@@ -30,13 +31,15 @@ export function CategoryCard({ category, className }: CategoryCardProps) {
       )}
       aria-label={`${name} — ${category.recipeCount} ${dictionary.hero.statsRecipes}`}
     >
-      <OptimizedImage
-        src={category.image}
-        alt=""
-        fill
-        sizes="(max-width: 768px) 50vw, 16vw"
-        className="object-cover transition-transform duration-500 group-hover:scale-110"
-      />
+      <RevealImage className="absolute inset-0">
+        <OptimizedImage
+          src={category.image}
+          alt=""
+          fill
+          sizes="(max-width: 768px) 50vw, 16vw"
+          className="object-cover transition-transform duration-500 group-hover:scale-110"
+        />
+      </RevealImage>
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
       <div className="relative z-10 w-full p-4 text-start">
         {category.icon && (

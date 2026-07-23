@@ -4,6 +4,7 @@ import { HeartIcon, MessageCircleIcon, Share2Icon } from "lucide-react";
 import Link from "next/link";
 
 import { OptimizedImage } from "@/components/ui/optimized-image";
+import { RevealImage } from "@/components/motion/reveal-image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useLocale, useTranslations } from "@/hooks/use-translations";
 import type { CommunityPost } from "@/lib/data/types";
@@ -28,13 +29,15 @@ export function CommunityPostCard({ post }: CommunityPostCardProps) {
       >
         {post.image ? (
           <div className="relative aspect-[4/3] w-full overflow-hidden">
-            <OptimizedImage
-              src={post.image}
-              alt=""
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
-            />
+            <RevealImage className="absolute inset-0">
+              <OptimizedImage
+                src={post.image}
+                alt=""
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            </RevealImage>
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
           </div>
         ) : (

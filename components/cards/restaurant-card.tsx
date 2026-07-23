@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
 import { OptimizedImage } from "@/components/ui/optimized-image";
+import { RevealImage } from "@/components/motion/reveal-image";
 import { useLocale } from "@/hooks/use-translations";
 import type { Restaurant } from "@/lib/data/types";
 
@@ -27,13 +28,15 @@ export function RestaurantCard({ restaurant }: RestaurantCardProps) {
         className="block"
       >
         <div className="relative aspect-[4/3] w-full overflow-hidden">
-          <OptimizedImage
-            src={restaurant.image}
-            alt={name}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
+          <RevealImage className="absolute inset-0">
+            <OptimizedImage
+              src={restaurant.image}
+              alt={name}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          </RevealImage>
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
           <Badge className="absolute end-3 top-3 bg-white/20 text-white backdrop-blur-sm">
             {priceSymbols[restaurant.priceLevel - 1]}

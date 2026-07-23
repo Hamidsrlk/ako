@@ -30,7 +30,7 @@ export function SectionHeader({
   const { dictionary } = useTranslations();
 
   return (
-    <ScrollReveal className={cn("mb-8", className)}>
+    <ScrollReveal variant="blur" className={cn("mb-8", className)}>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           {eyebrow && (

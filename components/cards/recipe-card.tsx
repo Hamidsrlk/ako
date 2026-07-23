@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { OptimizedImage } from "@/components/ui/optimized-image";
+import { RevealImage } from "@/components/motion/reveal-image";
 import {
   Card,
   CardContent,
@@ -52,13 +53,15 @@ export function RecipeCard({
         style={{ animationDelay: `${index * 50}ms` }}
       >
         <div className="relative aspect-[4/3] overflow-hidden">
-          <OptimizedImage
-            src={recipe.image}
-            alt={title}
-            fill
-            sizes="(max-width: 768px) 100vw, 25vw"
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-          />
+          <RevealImage className="absolute inset-0">
+            <OptimizedImage
+              src={recipe.image}
+              alt={title}
+              fill
+              sizes="(max-width: 768px) 100vw, 25vw"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+            />
+          </RevealImage>
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-80 transition-opacity group-hover:opacity-100" />
 
           <div className="absolute start-3 top-3 flex flex-col gap-2">

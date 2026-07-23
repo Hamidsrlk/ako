@@ -11,7 +11,7 @@ export function CtaBanner() {
 
   return (
     <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
-      <ScrollReveal direction="none">
+      <ScrollReveal variant="scale">
         <div className="relative overflow-hidden rounded-3xl bg-foreground px-8 py-14 text-background sm:px-12 sm:py-16">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,oklch(0.705_0.189_47.604_/_0.35),transparent_50%)]" />
           <div className="pointer-events-none absolute -end-10 -top-10 size-40 animate-float rounded-full bg-orange-500/20 blur-2xl" />

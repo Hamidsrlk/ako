@@ -2,7 +2,13 @@
 
 import { ArrowLeftIcon, SparklesIcon, StarIcon } from "lucide-react";
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 
 import { SearchBar } from "@/components/search/search-bar";
 import { HeroQuickTags } from "@/components/home/hero-quick-tags";
@@ -132,6 +138,24 @@ export function HeroSection() {
   const images = config.images.length > 0 ? config.images : defaultHeroConfig.images;
   const { index, goTo, pause, resume } = useHeroSlideshow(images.length);
   const text = locale === "fa" ? config.fa : config.en;
+  const parallaxRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = parallaxRef.current;
+    if (!el) return;
+
+    const handleScroll = () => {
+      const rect = el.getBoundingClientRect();
+      if (rect.bottom > 0 && rect.top < window.innerHeight * 1.5) {
+        const offset = window.innerHeight - rect.top;
+        el.style.transform = `translate3d(0, ${offset * 0.08}px, 0)`;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <section
@@ -141,7 +165,11 @@ export function HeroSection() {
       onMouseLeave={resume}
     >
       {/* Slideshow background */}
-      <div className="absolute inset-0 -z-20" aria-hidden>
+      <div
+        ref={parallaxRef}
+        className="absolute inset-0 -z-20 will-change-transform"
+        aria-hidden
+      >
         {images.map((src, i) => (
           <div
             key={src}

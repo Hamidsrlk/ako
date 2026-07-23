@@ -238,6 +238,96 @@
   animation: shimmer 2.5s infinite;
 }
 
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fade-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes blur-in {
+  from {
+    opacity: 0;
+    transform: translateY(1rem) scale(0.95);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes image-zoom-in {
+  from {
+    transform: scale(1.12);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.animate-scale-in {
+  animation: scale-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-fade-in-left {
+  animation: fade-in-left 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-fade-in-right {
+  animation: fade-in-right 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-fade-in-down {
+  animation: fade-in-down 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-blur-in {
+  animation: blur-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-image-zoom-in {
+  animation: image-zoom-in 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
 .card-shine {
   position: relative;
   overflow: hidden;
@@ -333,6 +423,12 @@
     scroll-behavior: auto;
   }
   .animate-fade-in-up,
+  .animate-scale-in,
+  .animate-fade-in-left,
+  .animate-fade-in-right,
+  .animate-fade-in-down,
+  .animate-blur-in,
+  .animate-image-zoom-in,
   .animate-float,
   .animate-marquee,
   .animate-shimmer {

@@ -22,8 +22,9 @@ export function CategoriesSection() {
       />
 
       <StaggerGrid
-        className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6"
+        className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-6"
         staggerMs={70}
+        variant="scale"
       >
         {foodCategories.map((category) => (
           <CategoryCard key={category.id} category={category} />
